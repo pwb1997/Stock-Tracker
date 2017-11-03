@@ -1,48 +1,38 @@
-The content below is an example project proposal / requirements document. Replace the text below the lines marked "__TODO__" with details specific to your project. Remove the "TODO" lines.
-
-(___TODO__: your project name_)
-
-# Shoppy Shoperson 
+# Stock Tracker
 
 ## Overview
 
-(___TODO__: a brief one or two paragraph, high-level description of your project_)
+Checking the stock price and calculating the return is teadious for a human brain, but a computer brain can handle it fast and accurately.
 
-Remembering what to buy at the grocery store is waaaaay too difficult. Also, shopping for groceries when you're hungry leads to regrettable purchases. Sooo... that's where Shoppy Shoperson comes in!
-
-Shoppy Shoperson is a web app that will allow users to keep track of multiple grocery lists. Users can register and login. Once they're logged in, they can create or view their grocery list. For every list that they have, they can add items to the list or cross off items.
+Stock Tracker is a web app which tracks your stock portfolio and caculate the return. Your can also get a detialed view of the performance of each stock in your porfolio. This web app may use an API to get data of the stocks, or it may use a script to get stock data from finance sites.
 
 
 ## Data Model
 
-(___TODO__: a description of your application's data and their relationships to each other_) 
+The application will store Users, Portfolios of stocks, Name of stocks, Quantity of stocks, Orininal Price, and Current Price.
 
-The application will store Users, Lists and Items
-
-* users can have multiple lists (via references)
-* each list can have multiple items (by embedding)
-
-(___TODO__: sample documents_)
+* users can have multiple portfolios of stocks
+* each portfolio have multiple stocks (Embedded)
 
 An Example User:
 
 ```javascript
 {
-  username: "shannonshopper",
+  username: "dumbInvestor",
   hash: // a password hash,
-  lists: // an array of references to List documents
+  portfolios: // an array of references to the portfolios
 }
 ```
 
-An Example List with Embedded Items:
+An Example Portfolio with Embedded Items:
 
 ```javascript
 {
   user: // a reference to a User object
-  name: "Breakfast foods",
-  items: [
-    { name: "pancakes", quantity: "9876", checked: false},
-    { name: "ramen", quantity: "2", checked: true},
+  portfolioName: "A Stupid Portfolio",
+  portfolioItems: [
+    { name: "AAPL", quantity: "100", original: "200", current: "160"},
+    { name: "TESLA", quantity: "1000", original: "100", current: "300"},
   ],
   createdAt: // timestamp
 }
