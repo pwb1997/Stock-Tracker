@@ -1,4 +1,4 @@
-# Stock Tracker
+Stock Tracker
 
 ## Overview
 
@@ -46,23 +46,23 @@ An Example Portfolio with Embedded Items:
 
 /signin - page for signing in
 
-![signin](documentation/sign-in.png)
+![signin](documentation/sign-in.PNG)
 
 /signup - page for signing up
 
-![signup](documentation/sign-up.png)
+![signup](documentation/sign-up.PNG)
 
 /home - page for showing overview of portfolios
 
-![overview](documentation/portfolio-overview.png)
+![overview](documentation/portfolio-overview.PNG)
 
 /portfolio-1 - page for showing detail of a portfolio
 
-![portfolio-detail](documentation/portfolio-detail.png)
+![portfolio-detail](documentation/portfolio-detail.PNG)
 
 /portfolio-1/stock-1 - page for showing detail of a stock
 
-![stock-detail](documentation/stock-detail.png)
+![stock-detail](documentation/stock-detail.PNG)
 
 
 
