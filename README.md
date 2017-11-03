@@ -1,4 +1,4 @@
-# Stock Tracker
+Stock Tracker
 
 ## Overview
 
@@ -44,19 +44,35 @@ An Example Portfolio with Embedded Items:
 
 ## Wireframes
 
-(___TODO__: wireframes for all of the pages on your site; they can be as simple as photos of drawings or you can use a tool like Balsamiq, Omnigraffle, etc._)
+/signin - page for signing in
 
-/list/create - page for creating a new shopping list
+![signin](documentation/sign-in.PNG)
 
-![list create](documentation/list-create.png)
+/signup - page for signing up
 
-/list - page for showing all shopping lists
+![signup](documentation/sign-up.PNG)
 
-![list](documentation/list.png)
+/home - page for showing overview of portfolios
 
-/list/slug - page for showing specific shopping list
+![overview](documentation/portfolio-overview.PNG)
 
-![list](documentation/list-slug.png)
+/portfolio-1 - page for showing detail of a portfolio
+
+![portfolio-detail](documentation/portfolio-detail.PNG)
+
+/portfolio-1/stock-1 - page for showing detail of a stock
+
+![stock-detail](documentation/stock-detail.PNG)
+
+/add-portfolio - page for adding portfolios
+
+![add-portfolio](documentation/add-portfolio.PNG)
+
+/portfolio-1/add-stock - page for adding stock
+
+![add-stock](documentation/add-stock.PNG)
+
+
 
 ## Site map
 
