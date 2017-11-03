@@ -64,6 +64,14 @@ An Example Portfolio with Embedded Items:
 
 ![stock-detail](documentation/stock-detail.PNG)
 
+/add-portfolio - page for adding portfolios
+
+![add-portfolio](documentation/add-portfolio.PNG)
+
+/portfolio-1/add-stock - page for adding stock
+
+![add-stock](documentation/add-stock.PNG)
+
 
 
 ## Site map
