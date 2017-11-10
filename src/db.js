@@ -32,6 +32,7 @@ mongoose.model('Portfolio', Portfolio);
 mongoose.model('PortfolioBook', PortfolioBook);
 
 // connect to db
+console.log("NODE_ENV is set to " + process.env.NODE_ENV);
 let dbconf = 'mongodb://localhost/pb1713';
 if (process.env.NODE_ENV === 'PRODUCTION') {
     console.log("[using remote database]");
