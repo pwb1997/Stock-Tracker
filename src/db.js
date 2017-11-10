@@ -40,4 +40,5 @@ if (process.env.NODE_ENV === 'PRODUCTION') {
 } else {
     console.log("[using local database]");
 }
+console.log("Connecting to " + dbconf);
 mongoose.connect(dbconf);
