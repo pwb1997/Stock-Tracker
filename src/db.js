@@ -36,7 +36,7 @@ console.log("NODE_ENV is set to " + process.env.NODE_ENV);
 let dbconf = 'mongodb://localhost/pb1713';
 if (process.env.NODE_ENV === 'PRODUCTION') {
     console.log("[using remote database]");
-    dbconf = JSON.parse(fs.readFileSync(__dirname + "../config.json")).dbconf;
+    dbconf = JSON.parse(fs.readFileSync(__dirname + "/../config.json")).dbconf;
 } else {
     console.log("[using local database]");
 }
