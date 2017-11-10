@@ -3,14 +3,25 @@ const app = express();
 const bodyParser = require('body-parser');
 const sessions = {};
 
-// middlewares to be implemented
-
+// middlewares
 app.set('view engine', 'hbs');
-
 app.use(bodyParser.urlencoded({
     extended: false
 }));
 
+// use alphavantage api to update stock data, API key: SWXLO3YDPZQR9BB6
+function updateData(req, res, next) {
+    // (still learning how to use the api, will fill it up during the weekend)
+    // for each p of portfolios
+    //      for each s of stocks
+    //          update current stock price using alphavantage api
+    //          calculate the return or loss
+    //      calculate the total return or loss of the porfolio
+    next();
+}
+app.use(updateData);
+
+// route handler
 app.get("/signin", (req, res) => {
     req.render("signin");
 });
@@ -60,5 +71,5 @@ app.post("/:portfolioId/add-stock", (req, res) => {
 });
 
 // to be implemented
-console.log("Connecting to PORT: " + (process.env.PORT || 3000));
+console.log("Listening PORT: " + (process.env.PORT || 3000));
 app.listen(process.env.PORT || 3000);
