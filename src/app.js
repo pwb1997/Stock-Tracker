@@ -60,5 +60,5 @@ app.post("/:portfolioId/add-stock", (req, res) => {
 });
 
 // to be implemented
-
-app.listen("3000");
+console.log(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3000);
