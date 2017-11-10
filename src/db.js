@@ -28,4 +28,4 @@ PortfolioBook.plugin(slug);
 
 mongoose.model('Portfolio', Portfolio);
 mongoose.model('PortfolioBook', PortfolioBook);
-mongoose.connect('mongodb://localhost/stockTracker');
+mongoose.connect('mongodb://pb1713:P5wwNth4@class-mongodb.cims.nyu.edu/pb1713');
