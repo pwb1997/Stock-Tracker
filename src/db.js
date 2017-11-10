@@ -1,7 +1,9 @@
 const timestamp = require('mongoose-timestamp');
 const slug = require('mongoose-slug');
 const mongoose = require('mongoose');
+const fs = require('fs');
 
+// create schema
 const Portfolio = new mongoose.Schema({
     name: String,
     quantity: Number,
@@ -28,4 +30,13 @@ PortfolioBook.plugin(slug);
 
 mongoose.model('Portfolio', Portfolio);
 mongoose.model('PortfolioBook', PortfolioBook);
-mongoose.connect('mongodb://pb1713:P5wwNth4@class-mongodb.cims.nyu.edu/pb1713');
+
+// connect to db
+let dbconf = 'mongodb://localhost/pb1713';
+if (process.env.NODE_ENV === 'PRODUCTION') {
+    console.log("[using remote database]");
+    dbconf = JSON.parse(fs.readFileSync(__dirname + "../config.json")).dbconf;
+} else {
+    console.log("[using local database]");
+}
+mongoose.connect(dbconf);
