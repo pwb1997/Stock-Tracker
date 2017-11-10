@@ -22,8 +22,19 @@ function updateData(req, res, next) {
 app.use(updateData);
 
 // route handler
+
+// test add porfolio and delete porfolio
+// login not implemented yet
+app.get("/", (req, res) => {
+    res.redirect("/home");
+});
+
+app.get("/home", (req, res) => {
+    res.render("home");
+});
+
 app.get("/signin", (req, res) => {
-    req.render("signin");
+    res.render("signin");
 });
 
 app.post("/signin", (req, res) => {
@@ -32,16 +43,12 @@ app.post("/signin", (req, res) => {
 });
 
 app.get("/signup", (req, res) => {
-    req.render("signup");
+    res.render("signup");
 });
 
 app.post("/signup", (req, res) => {
     // to be implemented
     res.redirect("/signin");
-});
-
-app.get("/home", (req, res) => {
-    req.render("home");
 });
 
 app.get("/:portfolioId", (req, res) => {
