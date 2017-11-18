@@ -5,20 +5,20 @@ const fs = require('fs');
 
 // create schema
 const Portfolio = new mongoose.Schema({
-    name: String,
-    quantity: Number,
-    original: Number,
-    current: Number
+  name: String,
+  quantity: Number,
+  original: Number,
+  current: Number
 });
 
 const PortfolioBook = new mongoose.Schema({
-    username: String,
-    hash: String,
-    portfolios: [{
-        user: String,
-        portfolioName: String,
-        portfolioItems: [Portfolio]
-    }],
+  uname: String,
+  uid: Number,
+  portfolios: [{
+    user: String,
+    portfolioName: String,
+    portfolioItems: [Portfolio]
+  }],
 });
 
 Portfolio.plugin(timestamp);
@@ -35,10 +35,10 @@ mongoose.model('PortfolioBook', PortfolioBook);
 console.log("NODE_ENV is set to " + process.env.NODE_ENV);
 let dbconf = 'mongodb://localhost/pb1713';
 if (process.env.NODE_ENV === 'PRODUCTION') {
-    console.log("[using remote database]");
-    dbconf = JSON.parse(fs.readFileSync(__dirname + "/../config.json")).dbconf;
+  console.log("[using remote database]");
+  dbconf = JSON.parse(fs.readFileSync(__dirname + "/../config.json")).dbconf;
 } else {
-    console.log("[using local database]");
+  console.log("[using local database]");
 }
 console.log("Connecting to " + dbconf);
 mongoose.connect(dbconf);
