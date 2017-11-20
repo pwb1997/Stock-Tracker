@@ -1,6 +1,6 @@
 <div class="frame">
   <h1>Add a Portfolio</h1>
-  <form #f="ngForm" (ngModel)="black" (ngSubmit)="onSubmit(f)">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
     Name
     <input name="name" [placeholder]="validation" [style.background-color]="color" ngModel required>
     <br>Description
