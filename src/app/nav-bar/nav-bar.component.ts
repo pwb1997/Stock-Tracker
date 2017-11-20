@@ -50,6 +50,6 @@ export class NavBarComponent implements OnInit {
   constructor(private cookieService: CookieService) { }
   ngOnInit() {
     this.loggedin = this.cookieService.get('loggedin');
-    this.signoutVisibility = this.loggedin === 'false' ? '-100px' : '12px';
+    this.signoutVisibility = this.loggedin === 'true' ? '12px' : '-100px';
   }
 }
