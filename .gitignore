@@ -42,3 +42,6 @@ testem.log
 Thumbs.db
 
 config.json
+start.sh
+stop.sh
+build.sh
