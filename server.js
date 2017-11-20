@@ -1,6 +1,11 @@
+// db
 require('./db');
 const mongoose = require('mongoose');
-const PortfolioBook = mongoose.model('PortfolioBook');
+const Portfolio = mongoose.model('Portfolio');
+const Stock = mongoose.model('Stock');
+const User = mongoose.model('User');
+
+//express
 const express = require('express');
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
@@ -22,9 +27,12 @@ app.use(session(sessionOptions));
 app.use(favicon(__dirname + '/dist/favicon.ico'));
 app.use(express.static(__dirname + '/dist'));
 app.use(cookieParser());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-  extended: false
+  extended: true
 }));
+
+
 
 function date() {
   return '[' + new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '') + ']';
@@ -32,6 +40,30 @@ function date() {
 
 app.get('*', (req, res) => {
   res.sendFile(__dirname + '/dist/index.html');
+});
+
+app.post('/add-portfolio', (req, res) => {
+  if (req.session.uid === undefined || req.session.uname === undefined || req.session.data === undefined) {
+    res.status(500).send(null);
+  }
+  const portfolio = new Portfolio();
+  portfolio.set({
+    name: req.body.name,
+    description: req.body.description,
+    colorTag: req.body.color,
+    stocks: [],
+  });
+  User.findOne({
+    'uid': req.session.uid
+  }, (err, user) => {
+    if (err) {
+      res.status(500).send(null);
+    } else {
+      console.log(user);
+      user.portfolios.push(portfolio);
+      user.save();
+    }
+  });
 });
 
 app.post('/signin', (req, res) => {
@@ -46,7 +78,28 @@ app.post('/signin', (req, res) => {
         req.session.uname = username;
         req.session.uid = userid;
         console.log(date(), username, 'logged in');
-        res.send(null);
+        User.findOne({
+          'uid': req.session.uid
+        }, (err, user) => {
+          if (err) {
+            res.status(500).send(null);
+          } else if (!user) {
+            const user = new User();
+            user.uname = req.session.uname;
+            user.uid = req.session.uid;
+            user.save((err) => {
+              if (err) {
+                res.status(500).send(null);
+              } else {
+                console.log(date(), "New doc created");
+                res.send(null);
+              }
+            });
+          } else {
+            console.log(date(), "User doc retrieved");
+            res.send(null);
+          }
+        });
       }
     });
 });

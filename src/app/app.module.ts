@@ -9,6 +9,8 @@ import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { CookieService } from 'ngx-cookie-service';
 import { NewPortfolioComponent } from './new-portfolio/new-portfolio.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
   {
@@ -38,7 +40,9 @@ const appRoutes: Routes = [
       appRoutes
     ),
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

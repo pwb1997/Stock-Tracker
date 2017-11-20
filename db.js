@@ -1,35 +1,35 @@
-const timestamp = require('mongoose-timestamp');
-const slug = require('mongoose-slug');
 const mongoose = require('mongoose');
 const fs = require('fs');
+const timestamp = require('mongoose-timestamp');
+const URLSlugs = require('mongoose-url-slugs');
 
 // create schema
+const Stock = new mongoose.Schema({
+  symbol: String,
+  tradeDate: Date,
+  shares: Number,
+  costBasis: Number,
+});
+
 const Portfolio = new mongoose.Schema({
   name: String,
-  quantity: Number,
-  original: Number,
-  current: Number
+  description: String,
+  colorTag: String,
+  stocks: [Stock]
 });
 
-const PortfolioBook = new mongoose.Schema({
+const User = new mongoose.Schema({
+  uid: String,
   uname: String,
-  uid: Number,
-  portfolios: [{
-    user: String,
-    portfolioName: String,
-    portfolioItems: [Portfolio]
-  }],
+  portfolios: [Portfolio]
 });
 
-Portfolio.plugin(timestamp);
-Portfolio.plugin(slug);
-
-PortfolioBook.plugin(timestamp);
-PortfolioBook.plugin(slug);
-
+User.plugin(timestamp);
 
 mongoose.model('Portfolio', Portfolio);
-mongoose.model('PortfolioBook', PortfolioBook);
+mongoose.model('Stock', Stock);
+mongoose.model('User', User);
+
 
 // connect to db
 console.log("NODE_ENV is set to " + process.env.NODE_ENV);

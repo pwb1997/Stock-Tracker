@@ -1,8 +1,8 @@
 <div class="frame" [style.visibility]="loggedin==='false'? 'visible': 'hidden'">
-  <h1>Please log in!</h1>
+  <h1>Please log in to continue</h1>
 </div>
 
 <div class="frame" [style.visibility]="loggedin==='true'? 'visible': 'hidden'">
   <h1>Hi, {{name.split(" ")[0]}}!</h1>
-  <a routerLink="/new-portfolio" class="button secondary small">New Portfolio</a>
+  <a routerLink="/new-portfolio" class="button secondary small">+ Create New Portfolio</a>
 </div>
