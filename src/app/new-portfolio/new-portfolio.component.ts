@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { log } from 'util';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-portfolio',
@@ -18,9 +19,10 @@ export class NewPortfolioComponent implements OnInit {
       this.color = '#ff9292';
     } else {
       f.value.color = f.value.color || 'white';
-      this.http.post('/add-portfolio', f.value).subscribe(
+      this.http.post('/add-portfolio', f.value, { responseType: 'text' }).subscribe(
         res => {
           console.log(res);
+          this.router.navigateByUrl('/home')
         },
         err => {
           alert('Session Error, Please Log in Again');
@@ -28,7 +30,7 @@ export class NewPortfolioComponent implements OnInit {
       );
     }
   }
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
   ngOnInit() {
   }
 

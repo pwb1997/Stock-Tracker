@@ -43,8 +43,9 @@ app.get('*', (req, res) => {
 });
 
 app.post('/add-portfolio', (req, res) => {
-  if (req.session.uid === undefined || req.session.uname === undefined || req.session.data === undefined) {
-    res.status(500).send(null);
+  if (req.session.uid === undefined || req.session.uname === undefined) {
+    res.sendStatus(500);
+    return;
   }
   const portfolio = new Portfolio();
   portfolio.set({
@@ -56,12 +57,18 @@ app.post('/add-portfolio', (req, res) => {
   User.findOne({
     'uid': req.session.uid
   }, (err, user) => {
-    if (err) {
-      res.status(500).send(null);
+    if (err || user === null) {
+      res.sendStatus(500);
     } else {
-      console.log(user);
       user.portfolios.push(portfolio);
-      user.save();
+      user.save((err) => {
+        if (err) {
+          res.sendStatus(500);
+        } else {
+          res.send("new portfolio created");
+          console.log(date(), "New Portfolio Created");
+        }
+      });
     }
   });
 });
