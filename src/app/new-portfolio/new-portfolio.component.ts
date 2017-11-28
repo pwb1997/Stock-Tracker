@@ -19,13 +19,14 @@ export class NewPortfolioComponent implements OnInit {
       this.color = '#ff9292';
     } else {
       f.value.color = f.value.color || 'white';
-      this.http.post('/add-portfolio', f.value, { responseType: 'text' }).subscribe(
+      this.http.post('/api/add-portfolio', f.value, { responseType: 'text' }).subscribe(
         res => {
           console.log(res);
           this.router.navigateByUrl('/home')
         },
         err => {
           console.log(err);
+          alert("Portfolio Name Duplicated!");
         }
       );
     }

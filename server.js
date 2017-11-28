@@ -43,37 +43,6 @@ app.get('*', (req, res) => {
   res.sendFile(__dirname + '/dist/index.html');
 });
 
-app.post('/add-portfolio', (req, res) => {
-  if (req.session.uid === undefined || req.session.uname === undefined) {
-    res.sendStatus(500);
-    return;
-  }
-  const portfolio = new Portfolio();
-  portfolio.set({
-    name: req.body.name,
-    description: req.body.description,
-    colorTag: req.body.color,
-    stocks: [],
-  });
-  User.findOne({
-    'uid': req.session.uid
-  }, (err, user) => {
-    if (err || user === null) {
-      res.sendStatus(500);
-    } else {
-      user.portfolios.push(portfolio);
-      user.save((err) => {
-        if (err) {
-          res.sendStatus(500);
-        } else {
-          res.send("new portfolio created");
-          console.log(date(), "New Portfolio Created");
-        }
-      });
-    }
-  });
-});
-
 app.post('/signin', (req, res) => {
   client.verifyIdToken(
     req.body.idtoken,
