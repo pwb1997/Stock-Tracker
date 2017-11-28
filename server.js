@@ -32,11 +32,12 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-
-
 function date() {
   return '[' + new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '') + ']';
 }
+
+const apiRoutes = require('./api');
+app.use('/api', apiRoutes);
 
 app.get('*', (req, res) => {
   res.sendFile(__dirname + '/dist/index.html');

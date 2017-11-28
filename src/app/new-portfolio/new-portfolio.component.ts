@@ -25,7 +25,7 @@ export class NewPortfolioComponent implements OnInit {
           this.router.navigateByUrl('/home')
         },
         err => {
-          alert('Session Error, Please Log in Again');
+          console.log(err);
         }
       );
     }
