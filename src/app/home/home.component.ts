@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit {
             portfolio.colorTag = each.colorTag;
             this.portfolios.push(portfolio);
           }
-          console.log(this.portfolios);
         },
         err => {
           console.log(err);

@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class NewPortfolioComponent implements OnInit {
   validation = 'eg. Portfolio 1';
   color = 'white';
+  exist = "";
   onSubmit(f: NgForm) {
     if (!f.valid) {
       this.validation = 'Please input a Valid Name!';
@@ -25,8 +26,10 @@ export class NewPortfolioComponent implements OnInit {
           this.router.navigateByUrl('/home')
         },
         err => {
-          console.log(err);
-          alert("Portfolio Name Duplicated!");
+          if (err.status === 400) {
+            this.exist = 'Name Exists, Try Another!';
+            this.color = '#ff9292';
+          };
         }
       );
     }
