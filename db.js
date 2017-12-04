@@ -25,6 +25,10 @@ const User = new mongoose.Schema({
 });
 
 User.plugin(timestamp);
+Portfolio.plugin(timestamp);
+Stock.plugin(timestamp);
+Portfolio.plugin(URLSlugs('name'));
+Stock.plugin(URLSlugs('symbol'));
 
 mongoose.model('Portfolio', Portfolio);
 mongoose.model('Stock', Stock);

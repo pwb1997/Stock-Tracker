@@ -4,8 +4,13 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const Portfolio = mongoose.model('Portfolio');
 
+function date() {
+  return '[' + new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '') + ']';
+}
+
 router.get('/portfolios', (req, res) => {
   if (req.session.uid === undefined || req.session.uname === undefined) {
+    console.log(date(), 'Session error');
     res.sendStatus(500);
     return;
   }
@@ -29,6 +34,7 @@ router.get('/portfolios', (req, res) => {
 
 router.post('/add-portfolio', (req, res) => {
   if (req.session.uid === undefined || req.session.uname === undefined) {
+    console.log(date(), 'Session error');
     res.sendStatus(500);
     return;
   }
@@ -36,6 +42,7 @@ router.post('/add-portfolio', (req, res) => {
     'uid': req.session.uid
   }, (err, user) => {
     if (err || user === null) {
+      console.log(date(), 'Session error');
       res.sendStatus(500);
     } else {
       for (const each of user.portfolios) {
@@ -51,14 +58,22 @@ router.post('/add-portfolio', (req, res) => {
         colorTag: req.body.color,
         stocks: [],
       });
-      user.portfolios.push(portfolio);
-      user.save((err) => {
+      portfolio.save(((err) => {
         if (err) {
+          console.log(date(), 'DB error');
           res.sendStatus(500);
         } else {
-          res.send();
+          user.portfolios.push(portfolio);
+          user.save((err) => {
+            if (err) {
+              console.log(date(), 'DB error');
+              res.sendStatus(500);
+            } else {
+              res.send();
+            }
+          });
         }
-      });
+      }));
     }
   });
 });

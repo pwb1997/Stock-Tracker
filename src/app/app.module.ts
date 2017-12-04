@@ -11,6 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { NewPortfolioComponent } from './new-portfolio/new-portfolio.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { PortfolioComponent } from './portfolio/portfolio.component';
 
 const appRoutes: Routes = [
   {
@@ -34,6 +35,7 @@ const appRoutes: Routes = [
     AboutComponent,
     HomeComponent,
     NewPortfolioComponent,
+    PortfolioComponent,
   ],
   imports: [
     RouterModule.forRoot(

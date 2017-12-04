@@ -1,4 +1,16 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Stock Tracker</title><base href="/"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/x-icon" href="favicon.ico"><meta name="google-signin-client_id" content="593544571220-g6tdi03f807ajije2241ekc1a303sokl.apps.googleusercontent.com"><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script><script>$(document).ready(function () {
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Stock Tracker</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta name="google-signin-client_id" content="593544571220-g6tdi03f807ajije2241ekc1a303sokl.apps.googleusercontent.com">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
       document.getElementById('mainframe').style.visibility = 'visible';
     });
 
@@ -47,4 +59,14 @@
         xhr.send('logout=true');
         location.reload();
       });
-    }</script><script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer="defer"></script><link href="styles.1dd8f975d223356d8120.bundle.css" rel="stylesheet"/></head><body id="mainframe"><app-root></app-root><script type="text/javascript" src="inline.688c4040bd56f5339891.bundle.js"></script><script type="text/javascript" src="polyfills.ad37cd45a71cb38eee76.bundle.js"></script><script type="text/javascript" src="main.4cc920ab314888c94a6a.bundle.js"></script></body></html>
+    }
+
+  </script>
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+</head>
+
+<body id='mainframe'>
+  <app-root></app-root>
+<script type="text/javascript" src="inline.bundle.js"></script><script type="text/javascript" src="polyfills.bundle.js"></script><script type="text/javascript" src="styles.bundle.js"></script><script type="text/javascript" src="vendor.bundle.js"></script><script type="text/javascript" src="main.bundle.js"></script></body>
+
+</html>
