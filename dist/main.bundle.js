@@ -159,12 +159,14 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__portfolio_portfolio_component__ = __webpack_require__("../../../../../src/app/portfolio/portfolio.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__new_stock_new_stock_component__ = __webpack_require__("../../../../../src/app/new-stock/new-stock.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__stock_stock_component__ = __webpack_require__("../../../../../src/app/stock/stock.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__edit_stock_edit_stock_component__ = __webpack_require__("../../../../../src/app/edit-stock/edit-stock.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -220,6 +222,7 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_12__portfolio_portfolio_component__["a" /* PortfolioComponent */],
                 __WEBPACK_IMPORTED_MODULE_13__new_stock_new_stock_component__["a" /* NewStockComponent */],
                 __WEBPACK_IMPORTED_MODULE_14__stock_stock_component__["a" /* StockComponent */],
+                __WEBPACK_IMPORTED_MODULE_15__edit_stock_edit_stock_component__["a" /* EditStockComponent */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* RouterModule */].forRoot(appRoutes),
@@ -233,6 +236,68 @@ var AppModule = (function () {
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/edit-stock/edit-stock.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/edit-stock/edit-stock.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  edit-stock works!\n</p>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/edit-stock/edit-stock.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EditStockComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var EditStockComponent = (function () {
+    function EditStockComponent() {
+    }
+    EditStockComponent.prototype.ngOnInit = function () {
+    };
+    EditStockComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-edit-stock',
+            template: __webpack_require__("../../../../../src/app/edit-stock/edit-stock.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/edit-stock/edit-stock.component.css")],
+            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewEncapsulation */].None
+        }),
+        __metadata("design:paramtypes", [])
+    ], EditStockComponent);
+    return EditStockComponent;
 }());
 
 

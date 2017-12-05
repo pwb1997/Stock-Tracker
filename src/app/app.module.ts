@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { NewStockComponent } from './new-stock/new-stock.component';
 import { StockComponent } from './stock/stock.component';
+import { EditStockComponent } from './edit-stock/edit-stock.component';
 
 const appRoutes: Routes = [
   {
@@ -52,6 +53,7 @@ const appRoutes: Routes = [
     PortfolioComponent,
     NewStockComponent,
     StockComponent,
+    EditStockComponent,
   ],
   imports: [
     RouterModule.forRoot(

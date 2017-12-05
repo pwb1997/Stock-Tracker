@@ -106,7 +106,6 @@ async function calcPortfolio(portfolio) {
   portfo.dchange = round2(portfo.dchange);
   portfo.wchange = round2(portfo.wchange);
   portfo.tchange = round2(portfo.tchange);
-  console.log(portfo);
   return new Promise((resolve) => {
     resolve(portfo);
   });
@@ -122,7 +121,6 @@ async function calcPortfolios(user, res) {
 
 // routes
 router.get('/del-portfolio/:pslugs', (req, res) => {
-  console.log(req.params.pslugs);
   User.findOne({
     'uid': req.session.uid
   }, (err, user) => {
@@ -190,14 +188,14 @@ router.post('/add-portfolio', (req, res) => {
       });
       portfolio.save(((err) => {
         if (err) {
-          console.log(date(), 'DB error');
+          console.log(date(), 'DB error, drop all collections to fix!');
           res.sendStatus(500);
         } else {
           user.portfolios.push(portfolio);
           user.save((err) => {
             mongoose.connection.collections['portfolios'].drop();
             if (err) {
-              console.log(date(), 'DB error');
+              console.log(date(), 'DB error, drop all collections to fix!');
               res.sendStatus(500);
             } else {
               res.send();
@@ -231,7 +229,6 @@ router.get('/portfolios/:pslugs', (req, res) => {
     }
     async function f() {
       const pfo = await calcPortfolio(portfolio);
-      console.log(pfo);
       res.send(pfo);
     }
     f();
@@ -277,6 +274,7 @@ router.post('/:pslugs/add-stock', (req, res) => {
       stock.save((err) => {
         if (err) {
           res.sendStatus(500);
+          console.log(date(), 'DB error, drop all collections to fix!');
           return;
         }
         portfolio.stocks.push(stock);
@@ -284,11 +282,13 @@ router.post('/:pslugs/add-stock', (req, res) => {
         portfolio.save((err) => {
           if (err) {
             res.sendStatus(500);
+            console.log(date(), 'DB error, drop all collections to fix!');
             return;
           }
           user.save((err) => {
             if (err) {
               res.sendStatus(500);
+              console.log(date(), 'DB error, drop all collections to fix!');
               return;
             }
             res.send();
