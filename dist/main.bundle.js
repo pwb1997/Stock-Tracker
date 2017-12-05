@@ -492,7 +492,6 @@ var NewPortfolioComponent = (function () {
         else {
             f.value.color = f.value.color || 'white';
             this.http.post('/api/add-portfolio', f.value, { responseType: 'text' }).subscribe(function (res) {
-                console.log(res);
                 _this.router.navigateByUrl('/home');
             }, function (err) {
                 if (err.status === 400) {
@@ -585,7 +584,6 @@ var NewStockComponent = (function () {
         }
         else {
             this.http.post('/api/' + this.slugs + "/add-stock", f.value, { responseType: 'text' }).subscribe(function (res) {
-                console.log(res);
                 _this.router.navigateByUrl('/' + _this.slugs);
             }, function (err) {
                 if (err.status === 401) {
@@ -639,7 +637,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/portfolio/portfolio.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"frame\">\n  <table id=\"slist\" *ngIf=\"stocks\">\n    <tr>\n      <th>Symbol</th>\n      <th>Shares</th>\n      <th>Value</th>\n      <th>Day Change</th>\n      <th>Day Change %</th>\n      <th>Total Change</th>\n      <th>Total Change %</th>\n      <th>Note</th>\n    </tr>\n    <tr *ngFor=\"let stock of stocks\">\n      <th>\n        <a routerLink=\"/{{slugs}}/{{stock.symbol}}\" class=\"symbol\">{{stock.symbol}}</a>\n      </th>\n    </tr>\n  </table>\n  <a routerLink=\"/{{slugs}}/new-stock\" class=\"button secondary small\">+ Add New Stock</a>\n  <a href=\"/api/del-portfolio/{{slugs}}\" class=\"button secondary small\">+ Delete {{slugs}}</a>\n</div>\n"
+module.exports = "<div class=\"frame\">\n  <table id=\"slist\" *ngIf=\"stocks\">\n    <tr>\n      <th>Symbol</th>\n      <th>Shares</th>\n      <th>Value</th>\n      <th>Day Change</th>\n      <th>Day Change %</th>\n      <th>Total Change</th>\n      <th>Total Change %</th>\n      <th>Note</th>\n    </tr>\n    <tr *ngFor=\"let stock of stocks\">\n      <th>\n        <a routerLink=\"/{{slugs}}/{{stock.symbol}}\" class=\"symbol\">{{stock.symbol}}</a>\n      </th>\n    </tr>\n  </table>\n  <a routerLink=\"/{{slugs}}/new-stock\" class=\"button secondary small\">+ Add New Stock</a>\n  <a (click)=\"delete()\" class=\"button secondary small\">+ Delete {{slugs}}</a>\n</div>\n"
 
 /***/ }),
 
@@ -665,15 +663,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var PortfolioComponent = (function () {
-    function PortfolioComponent(route, cookieService, http) {
+    function PortfolioComponent(route, cookieService, http, router) {
         this.route = route;
         this.cookieService = cookieService;
         this.http = http;
+        this.router = router;
         this.slugs = '';
         this.loggedin = 'false';
         this.stocks = [];
     }
+    PortfolioComponent.prototype.delete = function () {
+        var _this = this;
+        this.http.get('/api/del-portfolio/' + this.slugs, { responseType: 'text' }).subscribe(function (res) {
+            _this.router.navigateByUrl('/home');
+        }, function (err) {
+            alert('Failed to Delete ' + _this.slugs);
+        });
+    };
     PortfolioComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.slugs = this.route.snapshot.params['pslugs'];
@@ -699,7 +707,7 @@ var PortfolioComponent = (function () {
             styles: [__webpack_require__("../../../../../src/app/portfolio/portfolio.component.css")],
             encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewEncapsulation */].None
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_3_ngx_cookie_service__["a" /* CookieService */], __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_3_ngx_cookie_service__["a" /* CookieService */], __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]])
     ], PortfolioComponent);
     return PortfolioComponent;
 }());

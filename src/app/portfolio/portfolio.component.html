@@ -17,5 +17,5 @@
     </tr>
   </table>
   <a routerLink="/{{slugs}}/new-stock" class="button secondary small">+ Add New Stock</a>
-  <a href="/api/del-portfolio/{{slugs}}" class="button secondary small">+ Delete {{slugs}}</a>
+  <a (click)="delete()" class="button secondary small">+ Delete {{slugs}}</a>
 </div>

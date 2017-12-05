@@ -3,6 +3,7 @@ import { _document } from '@angular/platform-browser/src/browser';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { async } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -15,7 +16,17 @@ export class PortfolioComponent implements OnInit {
   slugs = '';
   loggedin = 'false';
   stocks = [];
-  constructor(private route: ActivatedRoute, private cookieService: CookieService, private http: HttpClient) { }
+  delete() {
+    this.http.get('/api/del-portfolio/' + this.slugs, { responseType: 'text' }).subscribe(
+      res => {
+        this.router.navigateByUrl('/home');
+      },
+      err => {
+        alert('Failed to Delete ' + this.slugs);
+      }
+    )
+  }
+  constructor(private route: ActivatedRoute, private cookieService: CookieService, private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
     this.slugs = this.route.snapshot.params['pslugs'];

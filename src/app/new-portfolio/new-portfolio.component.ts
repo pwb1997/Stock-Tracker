@@ -22,7 +22,6 @@ export class NewPortfolioComponent implements OnInit {
       f.value.color = f.value.color || 'white';
       this.http.post('/api/add-portfolio', f.value, { responseType: 'text' }).subscribe(
         res => {
-          console.log(res);
           this.router.navigateByUrl('/home')
         },
         err => {

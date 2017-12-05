@@ -10,10 +10,10 @@ function date() {
   return '[' + new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '') + ']';
 }
 
-function retrvStock(symbol, y, m, d) {
+function retrvHist(symbol, y, m, d) {
   const date = new Date(y, m - 1, d);
   const to = date.toISOString().slice(0, 10);
-  date.setDate(date.getDate() - 2);
+  date.setDate(date.getDate() - 3);
   const from = date.toISOString().slice(0, 10);
   return new Promise((resolve) => {
     finance.historical({
@@ -49,7 +49,7 @@ router.get('/del-portfolio/:pslugs', (req, res) => {
           res.sendStatus(500);
           return;
         }
-        res.send();
+        res.send('success');
       });
     }
   });
@@ -152,9 +152,8 @@ router.post('/:pslugs/add-stock', (req, res) => {
     const symbol = req.body.symbol.toUpperCase();
     const share = parseInt(0 + req.body.share);
     const basis = parseInt(0 + req.body['cost basis']);
-    const date = new Date().toISOString();
     async function f() {
-      const valid = await retrvStock(symbol, date.slice(0, 4), date.slice(5, 7), date.slice(8, 10));
+      const valid = await finance.quote(symbol);
       if (!valid) {
         res.sendStatus(402);
         return;

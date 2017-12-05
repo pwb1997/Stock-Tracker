@@ -23,7 +23,6 @@ export class NewStockComponent implements OnInit {
     } else {
       this.http.post('/api/' + this.slugs + "/add-stock", f.value, { responseType: 'text' }).subscribe(
         res => {
-          console.log(res);
           this.router.navigateByUrl('/' + this.slugs);
         },
         err => {
