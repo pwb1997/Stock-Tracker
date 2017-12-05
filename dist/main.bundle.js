@@ -157,12 +157,14 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__angular_common_http__ = __webpack_require__("../../../common/esm5/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__portfolio_portfolio_component__ = __webpack_require__("../../../../../src/app/portfolio/portfolio.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__new_stock_new_stock_component__ = __webpack_require__("../../../../../src/app/new-stock/new-stock.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -186,8 +188,20 @@ var appRoutes = [
         component: __WEBPACK_IMPORTED_MODULE_7__home_home_component__["a" /* HomeComponent */],
     },
     {
+        path: '',
+        component: __WEBPACK_IMPORTED_MODULE_7__home_home_component__["a" /* HomeComponent */],
+    },
+    {
         path: 'new-portfolio',
         component: __WEBPACK_IMPORTED_MODULE_9__new_portfolio_new_portfolio_component__["a" /* NewPortfolioComponent */],
+    },
+    {
+        path: ':pslugs',
+        component: __WEBPACK_IMPORTED_MODULE_12__portfolio_portfolio_component__["a" /* PortfolioComponent */],
+    },
+    {
+        path: ':pslugs/new-stock',
+        component: __WEBPACK_IMPORTED_MODULE_13__new_stock_new_stock_component__["a" /* NewStockComponent */],
     }
 ];
 var AppModule = (function () {
@@ -202,9 +216,10 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_7__home_home_component__["a" /* HomeComponent */],
                 __WEBPACK_IMPORTED_MODULE_9__new_portfolio_new_portfolio_component__["a" /* NewPortfolioComponent */],
                 __WEBPACK_IMPORTED_MODULE_12__portfolio_portfolio_component__["a" /* PortfolioComponent */],
+                __WEBPACK_IMPORTED_MODULE_13__new_stock_new_stock_component__["a" /* NewStockComponent */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* RouterModule */].forRoot(appRoutes),
+                __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* RouterModule */].forRoot(appRoutes),
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
                 __WEBPACK_IMPORTED_MODULE_10__angular_forms__["a" /* FormsModule */],
@@ -229,7 +244,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".frame {\r\n  margin-top: 70px;\r\n  position: absolute;\r\n}\r\n", ""]);
+exports.push([module.i, ".frame {\r\n  margin-top: 70px;\r\n  position: absolute;\r\n}\r\n\r\n.pname {\r\n  color: blue;\r\n  text-decoration: underline;\r\n}\r\n\r\n.pname:visited {\r\n  color: red;\r\n}\r\n", ""]);
 
 // exports
 
@@ -242,7 +257,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"frame\" [style.visibility]=\"loggedin==='false'? 'visible': 'hidden'\">\n  <h1>Please log in to continue</h1>\n</div>\n\n<div class=\"frame\" [style.visibility]=\"loggedin==='true'? 'visible': 'hidden'\" style.position=\"relative\">\n  <h1>Hi, {{name.split(\" \")[0]}}!</h1>\n  <h2>My Portfolios</h2>\n  <table id=\"plist\" *ngIf=\"portfolios\">\n    <tr>\n      <th>Tag</th>\n      <th>Name</th>\n      <th>Value</th>\n      <th>Day Change</th>\n      <th>Day Change %</th>\n      <th>Total Change</th>\n      <th>Total Change %</th>\n    </tr>\n    <tr *ngFor=\"let portfolio of portfolios\">\n      <th style.backgroundColor={{portfolio.colorTag}}>{{portfolio.colorTag}}</th>\n      <th>{{portfolio.name}}</th>\n    </tr>\n  </table>\n  <a routerLink=\"/new-portfolio\" class=\"button secondary small\">+ Create New Portfolio</a>\n</div>\n"
+module.exports = "<div class=\"frame\" [style.visibility]=\"loggedin==='false'? 'visible': 'hidden'\">\n  <h1>Please log in to continue</h1>\n</div>\n\n<div class=\"frame\" [style.visibility]=\"loggedin==='true'? 'visible': 'hidden'\" style.position=\"relative\">\n  <h1>Hi, {{name.split(\" \")[0]}}!</h1>\n  <h2>My Portfolios</h2>\n  <table id=\"plist\" *ngIf=\"portfolios\">\n    <tr>\n      <th>Tag</th>\n      <th>Name</th>\n      <th>Value</th>\n      <th>Day Change</th>\n      <th>Day Change %</th>\n      <th>Total Change</th>\n      <th>Total Change %</th>\n    </tr>\n    <tr *ngFor=\"let portfolio of portfolios\">\n      <th style.backgroundColor={{portfolio.colorTag}}>{{portfolio.colorTag}}</th>\n      <th>\n        <a routerLink=\"/{{portfolio.name}}\" class=\"pname\">{{portfolio.name}}</a>\n      </th>\n    </tr>\n  </table>\n  <a routerLink=\"/new-portfolio\" class=\"button secondary small\">+ Create New Portfolio</a>\n</div>\n"
 
 /***/ }),
 
@@ -497,9 +512,106 @@ var NewPortfolioComponent = (function () {
             styles: [__webpack_require__("../../../../../src/app/new-portfolio/new-portfolio.component.css")],
             encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewEncapsulation */].None
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]])
     ], NewPortfolioComponent);
     return NewPortfolioComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/new-stock/new-stock.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".frame {\r\n  margin-top: 70px;\r\n  position: absolute;\r\n}\r\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/new-stock/new-stock.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"frame\">\n  <h1>Add a Stock</h1>\n  <form #f=\"ngForm\" (ngSubmit)=\"onSubmit(f)\">\n    Symbol\n    <input name=\"symbol\" [placeholder]=\"validation\" [style.background-color]=\"color\" ngModel required>{{exist}}\n    <br>Share\n    <input name=\"share\" placeholder=\"0\" ngModel>\n    <br>Cost Basis\n    <input name=\"cost basis\" placeholder=\"0\" ngModel>\n    <button>Submit</button>\n  </form>\n</div>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/new-stock/new-stock.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NewStockComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("../../../common/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var NewStockComponent = (function () {
+    function NewStockComponent(http, route, router) {
+        this.http = http;
+        this.route = route;
+        this.router = router;
+        this.slugs = '';
+        this.validation = 'eg. AAPL';
+        this.color = "white";
+        this.exist = "";
+    }
+    NewStockComponent.prototype.onSubmit = function (f) {
+        var _this = this;
+        if (!f.valid) {
+            this.validation = 'Please input a Valid Symbol!';
+            this.color = '#ff9292';
+        }
+        else {
+            this.http.post('/api/' + this.slugs + "/add-stock", f.value, { responseType: 'text' }).subscribe(function (res) {
+                console.log(res);
+                _this.router.navigateByUrl('/' + _this.slugs);
+            }, function (err) {
+                if (err.status === 401) {
+                    _this.exist = 'Symbol Exists, Try Another!';
+                    _this.color = '#ff9292';
+                }
+                else if (err.status === 402) {
+                    _this.exist = 'Symbol Not Found, Try Another!';
+                    _this.color = '#ff9292';
+                }
+            });
+        }
+    };
+    NewStockComponent.prototype.ngOnInit = function () {
+        this.slugs = this.route.snapshot.params['pslugs'];
+    };
+    NewStockComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-new-stock',
+            template: __webpack_require__("../../../../../src/app/new-stock/new-stock.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/new-stock/new-stock.component.css")],
+            encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewEncapsulation */].None
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]])
+    ], NewStockComponent);
+    return NewStockComponent;
 }());
 
 
@@ -514,7 +626,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".frame {\r\n  margin-top: 70px;\r\n  position: absolute;\r\n}\r\n", ""]);
 
 // exports
 
@@ -527,7 +639,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/portfolio/portfolio.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  portfolio works!\n</p>\n"
+module.exports = "<div class=\"frame\">\n  <table id=\"slist\" *ngIf=\"stocks\">\n    <tr>\n      <th>Symbol</th>\n      <th>Shares</th>\n      <th>Value</th>\n      <th>Day Change</th>\n      <th>Day Change %</th>\n      <th>Total Change</th>\n      <th>Total Change %</th>\n      <th>Note</th>\n    </tr>\n    <tr *ngFor=\"let stock of stocks\">\n      <th>\n        <a routerLink=\"/{{slugs}}/{{stock.symbol}}\" class=\"symbol\">{{stock.symbol}}</a>\n      </th>\n    </tr>\n  </table>\n  <a routerLink=\"/{{slugs}}/new-stock\" class=\"button secondary small\">+ Add New Stock</a>\n  <a href=\"/api/del-portfolio/{{slugs}}\" class=\"button secondary small\">+ Delete {{slugs}}</a>\n</div>\n"
 
 /***/ }),
 
@@ -537,6 +649,9 @@ module.exports = "<p>\n  portfolio works!\n</p>\n"
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PortfolioComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__("../../../common/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ngx_cookie_service__ = __webpack_require__("../../../../ngx-cookie-service/index.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -547,10 +662,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
+
 var PortfolioComponent = (function () {
-    function PortfolioComponent() {
+    function PortfolioComponent(route, cookieService, http) {
+        this.route = route;
+        this.cookieService = cookieService;
+        this.http = http;
+        this.slugs = '';
+        this.loggedin = 'false';
+        this.stocks = [];
     }
     PortfolioComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.slugs = this.route.snapshot.params['pslugs'];
+        this.loggedin = this.cookieService.get('loggedin');
+        if (this.loggedin === 'true') {
+            this.http.get('/api/portfolios/' + this.slugs, { responseType: 'text' }).subscribe(function (res) {
+                for (var _i = 0, _a = JSON.parse(res); _i < _a.length; _i++) {
+                    var each = _a[_i];
+                    var stock = {};
+                    stock.symbol = each.symbol;
+                    _this.stocks.push(stock);
+                }
+                console.log(_this.stocks);
+            }, function (err) {
+                console.log(err);
+            });
+        }
     };
     PortfolioComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -559,7 +699,7 @@ var PortfolioComponent = (function () {
             styles: [__webpack_require__("../../../../../src/app/portfolio/portfolio.component.css")],
             encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewEncapsulation */].None
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_3_ngx_cookie_service__["a" /* CookieService */], __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */]])
     ], PortfolioComponent);
     return PortfolioComponent;
 }());

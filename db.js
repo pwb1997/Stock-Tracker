@@ -6,8 +6,7 @@ const URLSlugs = require('mongoose-url-slugs');
 // create schema
 const Stock = new mongoose.Schema({
   symbol: String,
-  tradeDate: Date,
-  shares: Number,
+  share: Number,
   costBasis: Number,
 });
 

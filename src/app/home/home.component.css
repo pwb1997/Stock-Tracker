@@ -2,3 +2,12 @@
   margin-top: 70px;
   position: absolute;
 }
+
+.pname {
+  color: blue;
+  text-decoration: underline;
+}
+
+.pname:visited {
+  color: red;
+}

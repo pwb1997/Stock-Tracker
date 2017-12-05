@@ -1,7 +1,6 @@
 // db
 require('./db');
 const mongoose = require('mongoose');
-const Stock = mongoose.model('Stock');
 const User = mongoose.model('User');
 
 //express

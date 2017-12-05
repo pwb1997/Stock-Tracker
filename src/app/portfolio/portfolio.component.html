@@ -1,3 +1,21 @@
-<p>
-  portfolio works!
-</p>
+<div class="frame">
+  <table id="slist" *ngIf="stocks">
+    <tr>
+      <th>Symbol</th>
+      <th>Shares</th>
+      <th>Value</th>
+      <th>Day Change</th>
+      <th>Day Change %</th>
+      <th>Total Change</th>
+      <th>Total Change %</th>
+      <th>Note</th>
+    </tr>
+    <tr *ngFor="let stock of stocks">
+      <th>
+        <a routerLink="/{{slugs}}/{{stock.symbol}}" class="symbol">{{stock.symbol}}</a>
+      </th>
+    </tr>
+  </table>
+  <a routerLink="/{{slugs}}/new-stock" class="button secondary small">+ Add New Stock</a>
+  <a href="/api/del-portfolio/{{slugs}}" class="button secondary small">+ Delete {{slugs}}</a>
+</div>

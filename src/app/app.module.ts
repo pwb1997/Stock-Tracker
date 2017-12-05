@@ -12,6 +12,7 @@ import { NewPortfolioComponent } from './new-portfolio/new-portfolio.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PortfolioComponent } from './portfolio/portfolio.component';
+import { NewStockComponent } from './new-stock/new-stock.component';
 
 const appRoutes: Routes = [
   {
@@ -23,8 +24,20 @@ const appRoutes: Routes = [
     component: HomeComponent,
   },
   {
+    path: '',
+    component: HomeComponent,
+  },
+  {
     path: 'new-portfolio',
     component: NewPortfolioComponent,
+  },
+  {
+    path: ':pslugs',
+    component: PortfolioComponent,
+  },
+  {
+    path: ':pslugs/new-stock',
+    component: NewStockComponent,
   }
 ];
 
@@ -36,6 +49,7 @@ const appRoutes: Routes = [
     HomeComponent,
     NewPortfolioComponent,
     PortfolioComponent,
+    NewStockComponent,
   ],
   imports: [
     RouterModule.forRoot(

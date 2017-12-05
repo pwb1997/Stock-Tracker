@@ -17,7 +17,9 @@
     </tr>
     <tr *ngFor="let portfolio of portfolios">
       <th style.backgroundColor={{portfolio.colorTag}}>{{portfolio.colorTag}}</th>
-      <th>{{portfolio.name}}</th>
+      <th>
+        <a routerLink="/{{portfolio.name}}" class="pname">{{portfolio.name}}</a>
+      </th>
     </tr>
   </table>
   <a routerLink="/new-portfolio" class="button secondary small">+ Create New Portfolio</a>
