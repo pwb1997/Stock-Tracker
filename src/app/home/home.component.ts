@@ -13,7 +13,7 @@ import { async } from '@angular/core/testing';
 export class HomeComponent implements OnInit {
   name = '';
   loggedin = 'false';
-  portfolios = [];
+  portfolios = [] as any;
   constructor(private cookieService: CookieService, private http: HttpClient) { }
   ngOnInit() {
     this.name = this.cookieService.get('username');
@@ -21,12 +21,8 @@ export class HomeComponent implements OnInit {
     if (this.loggedin === 'true') {
       this.http.get('/api/portfolios', { responseType: 'text' }).subscribe(
         res => {
-          for (const each of JSON.parse(res)) {
-            const portfolio = {} as any;
-            portfolio.name = each.name;
-            portfolio.colorTag = each.colorTag;
-            this.portfolios.push(portfolio);
-          }
+          this.portfolios = JSON.parse(res);
+          console.log(this.portfolios);
         },
         err => {
           console.log(err);

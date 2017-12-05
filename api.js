@@ -32,8 +32,8 @@ function round2(num) {
   return parseFloat(Math.round(num * 100) / 100).toFixed(2);
 }
 
-async function calcStock(symbol, share, basis, i) {
-  const stock = {};
+async function calcStock(symbol, share, basis) {
+  const stock = [{}, {}];
   const date = new Date();
   date.setDate(date.getDate() - 7);
   const d = date.toLocaleString("en-US", {
@@ -41,37 +41,82 @@ async function calcStock(symbol, share, basis, i) {
   });
   const currentQuote = await finance.quote(symbol);
   const preweekQuote = await retrvHist(symbol, d.slice(6, 10) + d.slice(0, 2) + d.slice(3, 5));
-  stock.symbol = symbol;
-  stock.share = share;
-  stock.basis = basis;
-  stock.current = currentQuote.price.regularMarketPrice;
-  stock.previous = currentQuote.summaryDetail.previousClose;
-  stock.preweek = preweekQuote;
-  stock.value = stock.share * stock.current;
-  stock.dchange = stock.current - stock.previous;
-  stock.dchangep = stock.dchange / stock.previous * 100;
-  stock.wchange = stock.current - stock.preweek;
-  stock.wchangep = stock.wchange / stock.preweek;
-  stock.tchange = stock.current - stock.basis;
-  stock.tchangep = stock.tchange / stock.basis * 100;
+  stock[0].symbol = symbol;
+  stock[0].share = share;
+  stock[0].basis = basis;
+  stock[0].current = currentQuote.price.regularMarketPrice;
+  stock[0].previous = currentQuote.summaryDetail.previousClose;
+  stock[0].preweek = preweekQuote;
+  stock[0].value = stock[0].share * stock[0].current;
+  stock[0].dchange = stock[0].current - stock[0].previous;
+  stock[0].dchangep = stock[0].dchange / stock[0].previous * 100;
+  stock[0].wchange = stock[0].current - stock[0].preweek;
+  stock[0].wchangep = stock[0].wchange / stock[0].preweek;
+  stock[0].tchange = stock[0].current - stock[0].basis;
+  stock[0].tchangep = stock[0].tchange / stock[0].basis * 100;
   // format numbers
-  if (i === 1) {
-    stock.basis = round2(stock.basis);
-    stock.current = round2(stock.current);
-    stock.previous = round2(stock.previous);
-    stock.preweek = round2(stock.preweek);
-    stock.value = round2(stock.value);
-    stock.dchange = round2(stock.dchange);
-    stock.dchangep = round2(stock.dchangep) + "%";
-    stock.wchange = round2(stock.wchange);
-    stock.wchangep = round2(stock.wchangep) + "%";
-    stock.tchange = round2(stock.tchange);
-    stock.tchangep = round2(stock.tchangep) + "%";
-  }
-  console.log(stock);
+  stock[1].symbol = symbol;
+  stock[1].share = share;
+  stock[1].basis = round2(stock[0].basis);
+  stock[1].current = round2(stock[0].current);
+  stock[1].previous = round2(stock[0].previous);
+  stock[1].preweek = round2(stock[0].preweek);
+  stock[1].value = round2(stock[0].value);
+  stock[1].dchange = round2(stock[0].dchange);
+  stock[1].dchangep = round2(stock[0].dchangep) + "%";
+  stock[1].wchange = round2(stock[0].wchange);
+  stock[1].wchangep = round2(stock[0].wchangep) + "%";
+  stock[1].tchange = round2(stock[0].tchange);
+  stock[1].tchangep = round2(stock[0].tchangep) + "%";
   return new Promise((resolve) => {
     resolve(stock);
   });
+}
+
+async function calcPortfolio(portfolio) {
+  const portfo = {};
+  portfo.tag = portfolio.colorTag;
+  portfo.name = portfolio.name;
+  portfo.description = portfolio.description;
+  portfo.value = 0;
+  portfo.dchange = 0;
+  portfo.wchange = 0;
+  portfo.tchange = 0;
+  portfo.previous = 0;
+  portfo.preweek = 0;
+  portfo.bvalue = 0;
+  portfo.stocks = [];
+  for (const s of portfolio.stocks) {
+    const stock = await calcStock(s.symbol, s.share, s.costBasis);
+    portfo.stocks.push(stock[1]);
+    portfo.value += stock[0].value;
+    portfo.dchange += stock[0].current - stock[0].previous;
+    portfo.pwvalue += stock[0].current - stock[0].preweek;
+    portfo.previous += stock[0].previous;
+    portfo.preweek += stock[0].preweek;
+    portfo.bvalue += stock[0].basis;
+    portfo.tchange += stock[0].tchange;
+  }
+  portfo.dchangep = round2(portfo.dchange / portfo.previous * 100) + "%";
+  portfo.wchangep = round2(portfo.dchange / portfo.preweek * 100) + "%";
+  portfo.tchangep = round2(portfo.tchange / portfo.bvalue * 100) + "%";
+  portfo.value = round2(portfo.value);
+  portfo.bvalue = round2(portfo.bvalue);
+  portfo.dchange = round2(portfo.dchange);
+  portfo.wchange = round2(portfo.wchange);
+  portfo.tchange = round2(portfo.tchange);
+  console.log(portfo);
+  return new Promise((resolve) => {
+    resolve(portfo);
+  });
+}
+
+async function calcPortfolios(user, res) {
+  const portfolios = [];
+  for (const p of user.portfolios) {
+    portfolios.push(await calcPortfolio(p));
+  }
+  res.send(portfolios);
 }
 
 // routes
@@ -111,14 +156,7 @@ router.get('/portfolios', (req, res) => {
     if (err || user === null) {
       res.sendStatus(500);
     } else {
-      const portfolios = [];
-      for (const each of user.portfolios) {
-        const portfolio = {};
-        portfolio.name = each.name;
-        portfolio.colorTag = each.colorTag;
-        portfolios.push(portfolio);
-      }
-      res.send(portfolios);
+      calcPortfolios(user, res);
     }
   });
 });
@@ -190,14 +228,10 @@ router.get('/portfolios/:pslugs', (req, res) => {
         break;
       }
     }
-    const stocks = [];
     async function f() {
-      for (const s of portfolio.stocks) {
-        const stock = await calcStock(s.symbol, s.share, s.costBasis, 1);
-        console.log(stock);
-        stocks.push(stock);
-      }
-      res.send(stocks);
+      const pfo = await calcPortfolio(portfolio);
+      console.log(pfo);
+      res.send(pfo);
     }
     f();
   });

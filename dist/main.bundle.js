@@ -244,7 +244,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".frame {\r\n  margin-top: 70px;\r\n  position: absolute;\r\n}\r\n\r\n.pname {\r\n  color: blue;\r\n  text-decoration: underline;\r\n}\r\n\r\n.pname:visited {\r\n  color: red;\r\n}\r\n", ""]);
+exports.push([module.i, ".frame {\r\n  margin-top: 70px;\r\n  position: absolute;\r\n}\r\n\r\n.pname {\r\n  color: rgb(68, 68, 199);\r\n  text-decoration: underline;\r\n}\r\n\r\n.pname:visited {\r\n  color: rgb(68, 68, 199);\r\n  text-decoration: underline;\r\n}\r\n", ""]);
 
 // exports
 
@@ -257,7 +257,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"frame\" [style.visibility]=\"loggedin==='false'? 'visible': 'hidden'\">\n  <h1>Please log in to continue</h1>\n</div>\n\n<div class=\"frame\" [style.visibility]=\"loggedin==='true'? 'visible': 'hidden'\" style.position=\"relative\">\n  <h1>Hi, {{name.split(\" \")[0]}}!</h1>\n  <h2>My Portfolios</h2>\n  <table id=\"plist\" *ngIf=\"portfolios\">\n    <tr>\n      <th>Tag</th>\n      <th>Name</th>\n      <th>Value</th>\n      <th>Day Change</th>\n      <th>Day Change %</th>\n      <th>Total Change</th>\n      <th>Total Change %</th>\n    </tr>\n    <tr *ngFor=\"let portfolio of portfolios\">\n      <th style.backgroundColor={{portfolio.colorTag}}>{{portfolio.colorTag}}</th>\n      <th>\n        <a routerLink=\"/{{portfolio.name}}\" class=\"pname\">{{portfolio.name}}</a>\n      </th>\n    </tr>\n  </table>\n  <a routerLink=\"/new-portfolio\" class=\"button secondary small\">+ Create New Portfolio</a>\n</div>\n"
+module.exports = "<div class=\"frame\" [style.visibility]=\"loggedin==='false'? 'visible': 'hidden'\">\n  <h1>Please log in to continue</h1>\n</div>\n\n<div class=\"frame\" [style.visibility]=\"loggedin==='true'? 'visible': 'hidden'\" style.position=\"relative\">\n  <h1>Hi, {{name.split(\" \")[0]}}!</h1>\n  <h2>My Portfolios</h2>\n  <table id=\"plist\" *ngIf=\"portfolios\">\n    <tr>\n      <th>Tag</th>\n      <th>Name</th>\n      <th>Value</th>\n      <th>Day Chg</th>\n      <th>Day Chg %</th>\n      <th>Week Chg</th>\n      <th>Week Chg %</th>\n      <th>Total Chg</th>\n      <th>Total Chg %</th>\n    </tr>\n    <tr *ngFor=\"let portfolio of portfolios\">\n      <th style.backgroundColor={{portfolio.tag}}>{{portfolio.colorTag}}</th>\n      <th>\n        <a routerLink=\"/{{portfolio.name}}\" class=\"pname\">{{portfolio.name}}</a>\n      </th>\n      <th>{{portfolio.value}}</th>\n      <th>{{portfolio.dchange}}</th>\n      <th>{{portfolio.dchangep}}</th>\n      <th>{{portfolio.wchange}}</th>\n      <th>{{portfolio.wchangep}}</th>\n      <th>{{portfolio.tchange}}</th>\n      <th>{{portfolio.tchangep}}</th>\n    </tr>\n  </table>\n  <a routerLink=\"/new-portfolio\" class=\"button secondary small\">+ Create New Portfolio</a>\n</div>\n"
 
 /***/ }),
 
@@ -295,13 +295,8 @@ var HomeComponent = (function () {
         this.loggedin = this.cookieService.get('loggedin');
         if (this.loggedin === 'true') {
             this.http.get('/api/portfolios', { responseType: 'text' }).subscribe(function (res) {
-                for (var _i = 0, _a = JSON.parse(res); _i < _a.length; _i++) {
-                    var each = _a[_i];
-                    var portfolio = {};
-                    portfolio.name = each.name;
-                    portfolio.colorTag = each.colorTag;
-                    _this.portfolios.push(portfolio);
-                }
+                _this.portfolios = JSON.parse(res);
+                console.log(_this.portfolios);
             }, function (err) {
                 console.log(err);
             });
@@ -633,7 +628,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/portfolio/portfolio.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"frame\">\n  <table id=\"slist\" *ngIf=\"stocks\">\n    <tr>\n      <th>Symbol</th>\n      <th>Shares</th>\n      <th>Cost Basis</th>\n      <th>Value</th>\n      <th>Day Chg</th>\n      <th>Day Chg %</th>\n      <th>Week Chg</th>\n      <th>Week Chg %</th>\n      <th>Total Chg</th>\n      <th>Total Chg %</th>\n    </tr>\n    <tr *ngFor=\"let stock of stocks\">\n      <th>\n        <a routerLink=\"/{{slugs}}/{{stock.symbol}}\" class=\"symbol\">{{stock.symbol}}</a>\n      </th>\n      <th>{{stock.share}}</th>\n      <th>{{stock.basis}}</th>\n      <th>{{stock.value}}</th>\n      <th>{{stock.dchange}}</th>\n      <th>{{stock.dchangep}}</th>\n      <th>{{stock.wchange}}</th>\n      <th>{{stock.wchangep}}</th>\n      <th>{{stock.tchange}}</th>\n      <th>{{stock.tchangep}}</th>\n    </tr>\n  </table>\n  <a routerLink=\"/{{slugs}}/new-stock\" class=\"button secondary small\">+ Add New Stock</a>\n  <a (click)=\"delete()\" class=\"button secondary small\">+ Delete {{slugs}}</a>\n</div>\n"
+module.exports = "<div class=\"frame\">\n  <h2>{{slugs}}</h2>\n  <table id=\"slist\" *ngIf=\"stocks\">\n    <tr>\n      <th>Symbol</th>\n      <th>Shares</th>\n      <th>Cost Basis</th>\n      <th>Value</th>\n      <th>Day Chg</th>\n      <th>Day Chg %</th>\n      <th>Week Chg</th>\n      <th>Week Chg %</th>\n      <th>Total Chg</th>\n      <th>Total Chg %</th>\n    </tr>\n    <tr>\n      <th>{{slugs}}</th>\n      <th></th>\n      <th>{{portfolio.bvalue}}</th>\n      <th>{{portfolio.value}}</th>\n      <th>{{portfolio.dchange}}</th>\n      <th>{{portfolio.dchangep}}</th>\n      <th>{{portfolio.wchange}}</th>\n      <th>{{portfolio.wchangep}}</th>\n      <th>{{portfolio.tchange}}</th>\n      <th>{{portfolio.tchangep}}</th>\n    </tr>\n    <tr *ngFor=\"let stock of stocks\">\n      <th>\n        <a routerLink=\"/{{slugs}}/{{stock.symbol}}\" class=\"symbol\">{{stock.symbol}}</a>\n      </th>\n      <th>{{stock.share}}</th>\n      <th>{{stock.basis}}</th>\n      <th>{{stock.value}}</th>\n      <th>{{stock.dchange}}</th>\n      <th>{{stock.dchangep}}</th>\n      <th>{{stock.wchange}}</th>\n      <th>{{stock.wchangep}}</th>\n      <th>{{stock.tchange}}</th>\n      <th>{{stock.tchangep}}</th>\n    </tr>\n  </table>\n  <a routerLink=\"/{{slugs}}/new-stock\" class=\"button secondary small\">+ Add New Stock</a>\n  <a (click)=\"delete()\" class=\"button secondary small\">+ Delete {{slugs}}</a>\n</div>\n"
 
 /***/ }),
 
@@ -668,6 +663,7 @@ var PortfolioComponent = (function () {
         this.router = router;
         this.slugs = '';
         this.loggedin = 'false';
+        this.portfolio = {};
         this.stocks = [];
     }
     PortfolioComponent.prototype.delete = function () {
@@ -684,8 +680,8 @@ var PortfolioComponent = (function () {
         this.loggedin = this.cookieService.get('loggedin');
         if (this.loggedin === 'true') {
             this.http.get('/api/portfolios/' + this.slugs, { responseType: 'text' }).subscribe(function (res) {
-                _this.stocks = JSON.parse(res);
-                console.log(_this.stocks);
+                _this.portfolio = JSON.parse(res);
+                _this.stocks = _this.portfolio.stocks;
             }, function (err) {
                 console.log(err);
             });

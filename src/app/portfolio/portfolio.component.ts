@@ -15,6 +15,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class PortfolioComponent implements OnInit {
   slugs = '';
   loggedin = 'false';
+  portfolio = {} as any;
   stocks = [];
   delete() {
     this.http.get('/api/del-portfolio/' + this.slugs, { responseType: 'text' }).subscribe(
@@ -34,8 +35,8 @@ export class PortfolioComponent implements OnInit {
     if (this.loggedin === 'true') {
       this.http.get('/api/portfolios/' + this.slugs, { responseType: 'text' }).subscribe(
         res => {
-          this.stocks = JSON.parse(res);
-          console.log(this.stocks);
+          this.portfolio = JSON.parse(res);
+          this.stocks = this.portfolio.stocks;
         },
         err => {
           console.log(err);

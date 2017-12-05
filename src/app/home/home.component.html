@@ -10,16 +10,25 @@
       <th>Tag</th>
       <th>Name</th>
       <th>Value</th>
-      <th>Day Change</th>
-      <th>Day Change %</th>
-      <th>Total Change</th>
-      <th>Total Change %</th>
+      <th>Day Chg</th>
+      <th>Day Chg %</th>
+      <th>Week Chg</th>
+      <th>Week Chg %</th>
+      <th>Total Chg</th>
+      <th>Total Chg %</th>
     </tr>
     <tr *ngFor="let portfolio of portfolios">
-      <th style.backgroundColor={{portfolio.colorTag}}>{{portfolio.colorTag}}</th>
+      <th style.backgroundColor={{portfolio.tag}}>{{portfolio.colorTag}}</th>
       <th>
         <a routerLink="/{{portfolio.name}}" class="pname">{{portfolio.name}}</a>
       </th>
+      <th>{{portfolio.value}}</th>
+      <th>{{portfolio.dchange}}</th>
+      <th>{{portfolio.dchangep}}</th>
+      <th>{{portfolio.wchange}}</th>
+      <th>{{portfolio.wchangep}}</th>
+      <th>{{portfolio.tchange}}</th>
+      <th>{{portfolio.tchangep}}</th>
     </tr>
   </table>
   <a routerLink="/new-portfolio" class="button secondary small">+ Create New Portfolio</a>

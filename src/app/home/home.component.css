@@ -4,10 +4,11 @@
 }
 
 .pname {
-  color: blue;
+  color: rgb(68, 68, 199);
   text-decoration: underline;
 }
 
 .pname:visited {
-  color: red;
+  color: rgb(68, 68, 199);
+  text-decoration: underline;
 }
