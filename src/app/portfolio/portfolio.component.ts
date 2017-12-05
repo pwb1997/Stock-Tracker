@@ -34,11 +34,7 @@ export class PortfolioComponent implements OnInit {
     if (this.loggedin === 'true') {
       this.http.get('/api/portfolios/' + this.slugs, { responseType: 'text' }).subscribe(
         res => {
-          for (const each of JSON.parse(res)) {
-            const stock = {} as any;
-            stock.symbol = each.symbol;
-            this.stocks.push(stock);
-          }
+          this.stocks = JSON.parse(res);
           console.log(this.stocks);
         },
         err => {

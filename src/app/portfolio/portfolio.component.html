@@ -3,17 +3,28 @@
     <tr>
       <th>Symbol</th>
       <th>Shares</th>
+      <th>Cost Basis</th>
       <th>Value</th>
-      <th>Day Change</th>
-      <th>Day Change %</th>
-      <th>Total Change</th>
-      <th>Total Change %</th>
-      <th>Note</th>
+      <th>Day Chg</th>
+      <th>Day Chg %</th>
+      <th>Week Chg</th>
+      <th>Week Chg %</th>
+      <th>Total Chg</th>
+      <th>Total Chg %</th>
     </tr>
     <tr *ngFor="let stock of stocks">
       <th>
         <a routerLink="/{{slugs}}/{{stock.symbol}}" class="symbol">{{stock.symbol}}</a>
       </th>
+      <th>{{stock.share}}</th>
+      <th>{{stock.basis}}</th>
+      <th>{{stock.value}}</th>
+      <th>{{stock.dchange}}</th>
+      <th>{{stock.dchangep}}</th>
+      <th>{{stock.wchange}}</th>
+      <th>{{stock.wchangep}}</th>
+      <th>{{stock.tchange}}</th>
+      <th>{{stock.tchangep}}</th>
     </tr>
   </table>
   <a routerLink="/{{slugs}}/new-stock" class="button secondary small">+ Add New Stock</a>

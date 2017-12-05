@@ -26,10 +26,7 @@ export class NewStockComponent implements OnInit {
           this.router.navigateByUrl('/' + this.slugs);
         },
         err => {
-          if (err.status === 401) {
-            this.exist = 'Symbol Exists, Try Another!';
-            this.color = '#ff9292';
-          } else if (err.status === 402) {
+          if (err.status === 400) {
             this.exist = 'Symbol Not Found, Try Another!';
             this.color = '#ff9292';
           }

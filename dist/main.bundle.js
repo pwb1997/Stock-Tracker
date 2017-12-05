@@ -586,11 +586,7 @@ var NewStockComponent = (function () {
             this.http.post('/api/' + this.slugs + "/add-stock", f.value, { responseType: 'text' }).subscribe(function (res) {
                 _this.router.navigateByUrl('/' + _this.slugs);
             }, function (err) {
-                if (err.status === 401) {
-                    _this.exist = 'Symbol Exists, Try Another!';
-                    _this.color = '#ff9292';
-                }
-                else if (err.status === 402) {
+                if (err.status === 400) {
                     _this.exist = 'Symbol Not Found, Try Another!';
                     _this.color = '#ff9292';
                 }
@@ -637,7 +633,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/portfolio/portfolio.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"frame\">\n  <table id=\"slist\" *ngIf=\"stocks\">\n    <tr>\n      <th>Symbol</th>\n      <th>Shares</th>\n      <th>Value</th>\n      <th>Day Change</th>\n      <th>Day Change %</th>\n      <th>Total Change</th>\n      <th>Total Change %</th>\n      <th>Note</th>\n    </tr>\n    <tr *ngFor=\"let stock of stocks\">\n      <th>\n        <a routerLink=\"/{{slugs}}/{{stock.symbol}}\" class=\"symbol\">{{stock.symbol}}</a>\n      </th>\n    </tr>\n  </table>\n  <a routerLink=\"/{{slugs}}/new-stock\" class=\"button secondary small\">+ Add New Stock</a>\n  <a (click)=\"delete()\" class=\"button secondary small\">+ Delete {{slugs}}</a>\n</div>\n"
+module.exports = "<div class=\"frame\">\n  <table id=\"slist\" *ngIf=\"stocks\">\n    <tr>\n      <th>Symbol</th>\n      <th>Shares</th>\n      <th>Cost Basis</th>\n      <th>Value</th>\n      <th>Day Chg</th>\n      <th>Day Chg %</th>\n      <th>Week Chg</th>\n      <th>Week Chg %</th>\n      <th>Total Chg</th>\n      <th>Total Chg %</th>\n    </tr>\n    <tr *ngFor=\"let stock of stocks\">\n      <th>\n        <a routerLink=\"/{{slugs}}/{{stock.symbol}}\" class=\"symbol\">{{stock.symbol}}</a>\n      </th>\n      <th>{{stock.share}}</th>\n      <th>{{stock.basis}}</th>\n      <th>{{stock.value}}</th>\n      <th>{{stock.dchange}}</th>\n      <th>{{stock.dchangep}}</th>\n      <th>{{stock.wchange}}</th>\n      <th>{{stock.wchangep}}</th>\n      <th>{{stock.tchange}}</th>\n      <th>{{stock.tchangep}}</th>\n    </tr>\n  </table>\n  <a routerLink=\"/{{slugs}}/new-stock\" class=\"button secondary small\">+ Add New Stock</a>\n  <a (click)=\"delete()\" class=\"button secondary small\">+ Delete {{slugs}}</a>\n</div>\n"
 
 /***/ }),
 
@@ -688,12 +684,7 @@ var PortfolioComponent = (function () {
         this.loggedin = this.cookieService.get('loggedin');
         if (this.loggedin === 'true') {
             this.http.get('/api/portfolios/' + this.slugs, { responseType: 'text' }).subscribe(function (res) {
-                for (var _i = 0, _a = JSON.parse(res); _i < _a.length; _i++) {
-                    var each = _a[_i];
-                    var stock = {};
-                    stock.symbol = each.symbol;
-                    _this.stocks.push(stock);
-                }
+                _this.stocks = JSON.parse(res);
                 console.log(_this.stocks);
             }, function (err) {
                 console.log(err);
