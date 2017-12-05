@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit {
       this.http.get('/api/portfolios', { responseType: 'text' }).subscribe(
         res => {
           this.portfolios = JSON.parse(res);
-          console.log(this.portfolios);
         },
         err => {
           console.log(err);

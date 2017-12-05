@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { NewStockComponent } from './new-stock/new-stock.component';
+import { StockComponent } from './stock/stock.component';
 
 const appRoutes: Routes = [
   {
@@ -50,6 +51,7 @@ const appRoutes: Routes = [
     NewPortfolioComponent,
     PortfolioComponent,
     NewStockComponent,
+    StockComponent,
   ],
   imports: [
     RouterModule.forRoot(

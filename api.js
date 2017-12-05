@@ -88,6 +88,7 @@ async function calcPortfolio(portfolio) {
   portfo.stocks = [];
   for (const s of portfolio.stocks) {
     const stock = await calcStock(s.symbol, s.share, s.costBasis);
+    stock[1].slug = s.slug;
     portfo.stocks.push(stock[1]);
     portfo.value += stock[0].value;
     portfo.dchange += stock[0].current - stock[0].previous;
