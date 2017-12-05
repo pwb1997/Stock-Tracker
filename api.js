@@ -10,6 +10,7 @@ function date() {
   return '[' + new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '') + ']';
 }
 
+// constructer, hof, and functions to retrieve data from API
 function retrvHist(symbol, y, m, d) {
   const date = new Date(y, m - 1, d);
   const to = date.toISOString().slice(0, 10);
