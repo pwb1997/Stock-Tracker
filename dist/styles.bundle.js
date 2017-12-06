@@ -77,7 +77,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "body {\n  margin: 0px;\n  visibility: hidden;\n}\n", ""]);
+exports.push([module.i, "\n", ""]);
 
 // exports
 

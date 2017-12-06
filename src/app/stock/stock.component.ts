@@ -38,7 +38,7 @@ export class StockComponent implements OnInit {
       'container_id': 'technical-analysis',
       'width': 998,
       'height': 610,
-      'symbol': 'AAPL',
+      'symbol': this.stock.symbol,
       'interval': 'D',
       'timezone': 'exchange',
       'theme': 'Light',

@@ -3,12 +3,12 @@
   position: absolute;
 }
 
-.pname {
+.pname:visited {
   color: rgb(68, 68, 199);
-  text-decoration: underline;
 }
 
-.pname:visited {
+.pname,
+.pname:hover {
   color: rgb(68, 68, 199);
   text-decoration: underline;
 }

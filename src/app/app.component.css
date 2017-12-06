@@ -2,13 +2,3 @@
   margin-top: 70px;
   position: absolute;
 }
-
-.symbol {
-  color: rgb(68, 68, 199);
-  text-decoration: underline;
-}
-
-.symbol:visited {
-  color: rgb(68, 68, 199);
-  text-decoration: underline;
-}

@@ -88,7 +88,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".frame {\r\n  margin-top: 70px;\r\n  position: absolute;\r\n}\r\n\r\n.symbol {\r\n  color: rgb(68, 68, 199);\r\n  text-decoration: underline;\r\n}\r\n\r\n.symbol:visited {\r\n  color: rgb(68, 68, 199);\r\n  text-decoration: underline;\r\n}\r\n", ""]);
+exports.push([module.i, ".frame {\r\n  margin-top: 70px;\r\n  position: absolute;\r\n}\r\n", ""]);
 
 // exports
 
@@ -411,7 +411,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".frame {\r\n  margin-top: 70px;\r\n  position: absolute;\r\n}\r\n\r\n.pname {\r\n  color: rgb(68, 68, 199);\r\n  text-decoration: underline;\r\n}\r\n\r\n.pname:visited {\r\n  color: rgb(68, 68, 199);\r\n  text-decoration: underline;\r\n}\r\n", ""]);
+exports.push([module.i, ".frame {\r\n  margin-top: 70px;\r\n  position: absolute;\r\n}\r\n\r\n.pname:visited {\r\n  color: rgb(68, 68, 199);\r\n}\r\n\r\n.pname,\r\n.pname:hover {\r\n  color: rgb(68, 68, 199);\r\n  text-decoration: underline;\r\n}\r\n", ""]);
 
 // exports
 
@@ -780,7 +780,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".frame {\r\n  margin-top: 70px;\r\n  position: absolute;\r\n}\r\n\r\n.symbol {\r\n  color: rgb(68, 68, 199);\r\n  text-decoration: underline;\r\n}\r\n\r\n.symbol:visited {\r\n  color: rgb(68, 68, 199);\r\n  text-decoration: underline;\r\n}\r\n", ""]);
+exports.push([module.i, ".frame {\r\n  margin-top: 70px;\r\n  position: absolute;\r\n}\r\n\r\n.symbol:visited {\r\n  color: rgb(68, 68, 199);\r\n}\r\n\r\n.symbol,\r\n.symbol:hover {\r\n  color: rgb(68, 68, 199);\r\n  text-decoration: underline;\r\n}\r\n", ""]);
 
 // exports
 
@@ -876,7 +876,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".frame {\r\n  margin-top: 70px;\r\n  position: absolute;\r\n}\r\n", ""]);
+exports.push([module.i, ".frame {\r\n  margin-top: 70px;\r\n  position: absolute;\r\n}\r\n\r\n.symbol:visited {\r\n  color: rgb(68, 68, 199);\r\n}\r\n\r\n.symbol,\r\n.symbol:hover {\r\n  color: rgb(68, 68, 199);\r\n  text-decoration: underline;\r\n}\r\n", ""]);
 
 // exports
 
@@ -943,7 +943,7 @@ var StockComponent = (function () {
             'container_id': 'technical-analysis',
             'width': 998,
             'height': 610,
-            'symbol': 'AAPL',
+            'symbol': this.stock.symbol,
             'interval': 'D',
             'timezone': 'exchange',
             'theme': 'Light',
