@@ -217,6 +217,10 @@ var appRoutes = [
         path: ':pslugs/s/:sslugs',
         component: __WEBPACK_IMPORTED_MODULE_14__stock_stock_component__["a" /* StockComponent */],
     },
+    {
+        path: ':pslugs/s/:sslugs/edit',
+        component: __WEBPACK_IMPORTED_MODULE_15__edit_stock_edit_stock_component__["a" /* EditStockComponent */],
+    },
 ];
 var AppModule = (function () {
     function AppModule() {
@@ -274,7 +278,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/edit-portfolio/edit-portfolio.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  edit-portfolio works!\n</p>\n<div class=\"frame\">\n  <h1>Edit {{slugs}}</h1>\n  <form #f=\"ngForm\" (ngSubmit)=\"onSubmit(f)\">\n    <br>Description\n    <input name=\"description\" placeholder=\"optional\" ngModel>\n    <br>Color Tag\n    <select name=\"color\" ngModel>\n      <option value=''>- Please Choose -</option>\n      <option value=\"white\">White</option>\n      <option value=\"black\">Black</option>\n      <option value=\"grey\">Grey</option>\n      <option value=\"blue\">Blue</option>\n      <option value=\"green\">Green</option>\n      <option value=\"orange\">Orange</option>\n      <option value=\"red\">Red</option>\n      <option value=\"purple\">Purple</option>\n    </select>\n    <button>Submit</button>\n  </form>\n</div>\n"
+module.exports = "<div class=\"frame\">\n  <h1>Edit {{slugs}}</h1>\n  <form #f=\"ngForm\" (ngSubmit)=\"onSubmit(f)\">\n    <br>Description\n    <input name=\"description\" placeholder=\"optional\" ngModel>\n    <br>Color Tag\n    <select name=\"color\" ngModel>\n      <option value=''>- Please Choose -</option>\n      <option value=\"white\">White</option>\n      <option value=\"black\">Black</option>\n      <option value=\"grey\">Grey</option>\n      <option value=\"blue\">Blue</option>\n      <option value=\"green\">Green</option>\n      <option value=\"orange\">Orange</option>\n      <option value=\"red\">Red</option>\n      <option value=\"purple\">Purple</option>\n    </select>\n    <button>Submit</button>\n  </form>\n</div>\n"
 
 /***/ }),
 
@@ -349,7 +353,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".frame {\r\n  margin-top: 60px;\r\n}\r\n", ""]);
 
 // exports
 
@@ -362,7 +366,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/edit-stock/edit-stock.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  edit-stock works!\n</p>\n"
+module.exports = "<div class=\"frame\">\n  <h1>Edit {{pslugs}} > {{sslugs}}</h1>\n  <form #f=\"ngForm\" (ngSubmit)=\"onSubmit(f)\">\n    <br>Share\n    <input name=\"share\" placeholder=\"number\" [style.background-color]=\"color1\" ngModel>\n    <p style=\"color: #EF3054\">{{valid1}}</p>\n    <br>Cost Basis\n    <input name=\"basis\" placeholder=\"number\" [style.background-color]=\"color2\" ngModel>\n    <p style=\"color: #EF3054\">{{valid2}}</p>\n    <button>Submit</button>\n  </form>\n</div>\n"
 
 /***/ }),
 
@@ -372,6 +376,8 @@ module.exports = "<p>\n  edit-stock works!\n</p>\n"
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EditStockComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("../../../common/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -382,10 +388,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
+
 var EditStockComponent = (function () {
-    function EditStockComponent() {
+    function EditStockComponent(route, http, router) {
+        this.route = route;
+        this.http = http;
+        this.router = router;
+        this.pslugs = '';
+        this.sslugs = '';
+        this.valid1 = '';
+        this.valid2 = '';
+        this.color1 = 'white';
+        this.color2 = 'white';
     }
+    EditStockComponent.prototype.onSubmit = function (f) {
+        var _this = this;
+        if (isNaN(f.value.share)) {
+            this.valid1 = 'Please Input a Valid Number';
+            this.color1 = '#EF3054';
+        }
+        if (isNaN(f.value.basis)) {
+            this.valid2 = 'Please Input a Valid Number';
+            this.color2 = '#EF3054';
+        }
+        if (!isNaN(f.value.share) && !isNaN(f.value.basis)) {
+            this.http.post('/api/' + this.pslugs + '/s/' + this.sslugs + '/edit', f.value, { responseType: 'text' }).subscribe(function (res) {
+                _this.router.navigateByUrl('/' + _this.pslugs + '/s/' + _this.sslugs);
+            });
+        }
+    };
     EditStockComponent.prototype.ngOnInit = function () {
+        this.pslugs = this.route.snapshot.params['pslugs'];
+        this.sslugs = this.route.snapshot.params['sslugs'];
     };
     EditStockComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -394,7 +430,7 @@ var EditStockComponent = (function () {
             styles: [__webpack_require__("../../../../../src/app/edit-stock/edit-stock.component.css")],
             encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewEncapsulation */].None
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]])
     ], EditStockComponent);
     return EditStockComponent;
 }());
@@ -889,7 +925,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/stock/stock.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"frame\">\r\n  <h2>\r\n    <a routerLink=\"/{{pslugs}}\" class=\"pname\">{{pslugs}}</a>\r\n    > {{stock.symbol}}\r\n  </h2>\r\n  <table>\r\n    <tr>\r\n      <th>Current Prc</th>\r\n      <th>Shares</th>\r\n      <th>Cost Basis</th>\r\n      <th>Value</th>\r\n      <th>Day Chg</th>\r\n      <th>Day Chg %</th>\r\n      <th>Week Chg</th>\r\n      <th>Week Chg %</th>\r\n      <th>Total Chg</th>\r\n      <th>Total Chg %</th>\r\n    </tr>\r\n    <tr>\r\n      <th>{{stock.current}}</th>\r\n      <th>{{stock.share}}</th>\r\n      <th>{{stock.basis}}</th>\r\n      <th>{{stock.value}}</th>\r\n      <th>{{stock.dchange}}</th>\r\n      <th>{{stock.dchangep}}</th>\r\n      <th>{{stock.wchange}}</th>\r\n      <th>{{stock.wchangep}}</th>\r\n      <th>{{stock.tchange}}</th>\r\n      <th>{{stock.tchangep}}</th>\r\n    </tr>\r\n  </table>\r\n  <div id=\"technical-analysis\">\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"frame\">\r\n  <h2>\r\n    <a routerLink=\"/{{pslugs}}\" class=\"pname\">{{pslugs}}</a>\r\n    > {{stock.symbol}}\r\n  </h2>\r\n  <table>\r\n    <tr>\r\n      <th>Current Prc</th>\r\n      <th>Shares</th>\r\n      <th>Cost Basis</th>\r\n      <th>Value</th>\r\n      <th>Day Chg</th>\r\n      <th>Day Chg %</th>\r\n      <th>Week Chg</th>\r\n      <th>Week Chg %</th>\r\n      <th>Total Chg</th>\r\n      <th>Total Chg %</th>\r\n    </tr>\r\n    <tr>\r\n      <th>{{stock.current}}</th>\r\n      <th>{{stock.share}}</th>\r\n      <th>{{stock.basis}}</th>\r\n      <th>{{stock.value}}</th>\r\n      <th>{{stock.dchange}}</th>\r\n      <th>{{stock.dchangep}}</th>\r\n      <th>{{stock.wchange}}</th>\r\n      <th>{{stock.wchangep}}</th>\r\n      <th>{{stock.tchange}}</th>\r\n      <th>{{stock.tchangep}}</th>\r\n    </tr>\r\n  </table>\r\n  <div id=\"technical-analysis\">\r\n  </div>\r\n  <a routerLink=\"/{{pslugs}}/s/{{sslugs}}/edit\" class=\"button secondary small\">Edit {{stock.name}}</a>\r\n  <a (click)=\"delete()\" class=\"button secondary small\">Delete {{stock.name}}</a>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -927,6 +963,14 @@ var StockComponent = (function () {
         this.loggedin = '';
         this.stock = {};
     }
+    StockComponent.prototype.delete = function () {
+        var _this = this;
+        this.http.get('/api/del-stock/' + this.pslugs + '/' + this.sslugs, { responseType: 'text' }).subscribe(function (res) {
+            _this.router.navigateByUrl('/' + _this.pslugs);
+        }, function (err) {
+            alert('Failed to Delete ' + _this.sslugs);
+        });
+    };
     StockComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.pslugs = this.route.snapshot.params['pslugs'];

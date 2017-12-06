@@ -18,6 +18,17 @@ export class StockComponent implements OnInit {
   sslugs = '';
   loggedin = '';
   stock = {} as any;
+  delete() {
+    this.http.get('/api/del-stock/' + this.pslugs + '/' + this.sslugs, { responseType: 'text' }).subscribe(
+      res => {
+        this.router.navigateByUrl('/' + this.pslugs);
+      },
+      err => {
+        alert('Failed to Delete ' + this.sslugs);
+      }
+    );
+  }
+
   constructor(private route: ActivatedRoute, private cookieService: CookieService, private http: HttpClient, private router: Router) { }
 
   ngOnInit() {

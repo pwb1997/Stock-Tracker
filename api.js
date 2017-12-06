@@ -387,4 +387,105 @@ router.post('/:pslugs/add-stock', (req, res) => {
 
 });
 
+router.post('/:pslugs/s/:sslugs/edit', (req, res) => {
+  if (req.session.uid === undefined || req.session.uname === undefined) {
+    console.log(date(), 'Session error');
+    res.sendStatus(500);
+    return;
+  }
+  User.findOne({
+    'uid': req.session.uid,
+  }, (err, user) => {
+    if (err || user === null) {
+      res.sendStatus(500);
+      return;
+    }
+    let stock;
+    let portfolio;
+    for (const p of user.portfolios) {
+      if (p.name === req.params.pslugs) {
+        portfolio = p;
+        for (const s of p.stocks) {
+          if (req.params.sslugs === JSON.parse(JSON.stringify(s)).slug) {
+            stock = s;
+            break;
+          }
+        }
+        break;
+      }
+    }
+    stock.share = req.body.share === '' ? stock.share : parseInt(0 + req.body.share);
+    stock.costBasis = req.body.basis === '' ? stock.costBasis : parseFloat(0 + req.body.basis);
+    stock.save((err) => {
+      if (err) {
+        res.sendStatus(500);
+        console.log(date(), 'DB error, drop all collections to fix!');
+        return;
+      }
+      portfolio.save((err) => {
+        if (err) {
+          res.sendStatus(500);
+          console.log(date(), 'DB error, drop all collections to fix!');
+          return;
+        }
+        user.save((err) => {
+          if (err) {
+            res.sendStatus(500);
+            console.log(date(), 'DB error, drop all collections to fix!');
+          }
+          res.send('success');
+        });
+      });
+    });
+
+  });
+
+});
+
+router.get('/del-stock/:pslugs/:sslugs', (req, res) => {
+  if (req.session.uid === undefined || req.session.uname === undefined) {
+    console.log(date(), 'Session error');
+    res.sendStatus(500);
+    return;
+  }
+  User.findOne({
+    'uid': req.session.uid,
+  }, (err, user) => {
+    if (err || user === null) {
+      res.sendStatus(500);
+      return;
+    }
+    let portfolio;
+    for (const p of user.portfolios) {
+      if (p.name === req.params.pslugs) {
+        for (const i in p.stocks) {
+          if (req.params.sslugs === JSON.parse(JSON.stringify(p.stocks[i])).slug) {
+            Stock.find({
+              'slug': JSON.parse(JSON.stringify(p.stocks[i])).slug
+            }).remove().exec();
+            p.stocks.splice(i, 1);
+            portfolio = p;
+            break;
+          }
+        }
+        break;
+      }
+    }
+    portfolio.save((err) => {
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      user.save((err) => {
+        if (err) {
+          res.sendStatus(500);
+          return;
+        }
+        res.send('success');
+      });
+    });
+
+  });
+});
+
 module.exports = router;

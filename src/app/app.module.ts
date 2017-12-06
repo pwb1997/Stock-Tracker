@@ -50,6 +50,10 @@ const appRoutes: Routes = [
     path: ':pslugs/s/:sslugs',
     component: StockComponent,
   },
+  {
+    path: ':pslugs/s/:sslugs/edit',
+    component: EditStockComponent,
+  },
 ];
 
 @NgModule({
