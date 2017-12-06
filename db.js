@@ -7,7 +7,7 @@ const URLSlugs = require('mongoose-url-slugs');
 const Stock = new mongoose.Schema({
   symbol: String,
   share: Number,
-  costBasis: Number,
+  costBasis: Number
 });
 
 const Portfolio = new mongoose.Schema({

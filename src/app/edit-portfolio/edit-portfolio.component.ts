@@ -6,12 +6,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-new-portfolio',
-  templateUrl: './new-portfolio.component.html',
-  styleUrls: ['./new-portfolio.component.css'],
+  selector: 'app-edit-portfolio',
+  templateUrl: './edit-portfolio.component.html',
+  styleUrls: ['./edit-portfolio.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class NewPortfolioComponent implements OnInit {
+export class EditPortfolioComponent implements OnInit {
   validation = 'eg. Portfolio 1';
   color = 'white';
   exist = '';
@@ -22,16 +22,10 @@ export class NewPortfolioComponent implements OnInit {
       this.color = '#ff9292';
     } else {
       f.value.color = f.value.color || 'white';
-      this.http.post('/api/add-portfolio', f.value, { responseType: 'text' }).subscribe(
+      this.http.post('/api/' + this.slugs + '/edit', f.value, { responseType: 'text' }).subscribe(
         res => {
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('/' + this.slugs);
         },
-        err => {
-          if (err.status === 400) {
-            this.exist = 'Name Exists, Try Another!';
-            this.color = '#ff9292';
-          }
-        }
       );
     }
   }

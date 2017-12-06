@@ -265,9 +265,8 @@ router.post('/:pslugs/edit', (req, res) => {
         break;
       }
     }
-    portfolio.name = req.body.name;
     portfolio.description = req.body.description;
-    portfolio.colorTag = req.body.basiscolorTag;
+    portfolio.colorTag = req.body.color;
     portfolio.save((err) => {
       if (err) {
         res.sendStatus(500);

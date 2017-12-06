@@ -208,6 +208,10 @@ var appRoutes = [
     {
         path: ':pslugs/new-stock',
         component: __WEBPACK_IMPORTED_MODULE_13__new_stock_new_stock_component__["a" /* NewStockComponent */],
+    },
+    {
+        path: ':pslugs/edit',
+        component: __WEBPACK_IMPORTED_MODULE_16__edit_portfolio_edit_portfolio_component__["a" /* EditPortfolioComponent */],
     }
 ];
 var AppModule = (function () {
@@ -253,7 +257,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".frame {\r\n  margin-top: 60px;\r\n}\r\n", ""]);
 
 // exports
 
@@ -266,7 +270,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/edit-portfolio/edit-portfolio.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  edit-portfolio works!\n</p>\n"
+module.exports = "<p>\n  edit-portfolio works!\n</p>\n<div class=\"frame\">\n  <h1>Edit {{slugs}}</h1>\n  <form #f=\"ngForm\" (ngSubmit)=\"onSubmit(f)\">\n    <br>Description\n    <input name=\"description\" placeholder=\"optional\" ngModel>\n    <br>Color Tag\n    <select name=\"color\" ngModel>\n      <option value=''>- Please Choose -</option>\n      <option value=\"white\">White</option>\n      <option value=\"black\">Black</option>\n      <option value=\"grey\">Grey</option>\n      <option value=\"blue\">Blue</option>\n      <option value=\"green\">Green</option>\n      <option value=\"orange\">Orange</option>\n      <option value=\"red\">Red</option>\n      <option value=\"purple\">Purple</option>\n    </select>\n    <button>Submit</button>\n  </form>\n</div>\n"
 
 /***/ }),
 
@@ -276,6 +280,8 @@ module.exports = "<p>\n  edit-portfolio works!\n</p>\n"
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EditPortfolioComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("../../../common/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -286,10 +292,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
+
 var EditPortfolioComponent = (function () {
-    function EditPortfolioComponent() {
+    function EditPortfolioComponent(route, http, router) {
+        this.route = route;
+        this.http = http;
+        this.router = router;
+        this.validation = 'eg. Portfolio 1';
+        this.color = 'white';
+        this.exist = '';
+        this.slugs = '';
     }
+    EditPortfolioComponent.prototype.onSubmit = function (f) {
+        var _this = this;
+        if (!f.valid) {
+            this.validation = 'Please input a Valid Name!';
+            this.color = '#ff9292';
+        }
+        else {
+            f.value.color = f.value.color || 'white';
+            this.http.post('/api/' + this.slugs + '/edit', f.value, { responseType: 'text' }).subscribe(function (res) {
+                _this.router.navigateByUrl('/' + _this.slugs);
+            });
+        }
+    };
     EditPortfolioComponent.prototype.ngOnInit = function () {
+        this.slugs = this.route.snapshot.params['pslugs'];
     };
     EditPortfolioComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -298,7 +328,7 @@ var EditPortfolioComponent = (function () {
             styles: [__webpack_require__("../../../../../src/app/edit-portfolio/edit-portfolio.component.css")],
             encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewEncapsulation */].None
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]])
     ], EditPortfolioComponent);
     return EditPortfolioComponent;
 }());
@@ -759,7 +789,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/portfolio/portfolio.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"frame\">\n  <h2>{{slugs}}</h2>\n  <p>{{portfolio.description}}</p>\n  <table id=\"slist\" *ngIf=\"stocks\">\n    <tr>\n      <th>Symbol</th>\n      <th>Current Prc</th>\n      <th>Shares</th>\n      <th>Cost Basis</th>\n      <th>Value</th>\n      <th>Day Chg</th>\n      <th>Day Chg %</th>\n      <th>Week Chg</th>\n      <th>Week Chg %</th>\n      <th>Total Chg</th>\n      <th>Total Chg %</th>\n    </tr>\n    <tr>\n      <th>{{slugs}}</th>\n      <th></th>\n      <th></th>\n      <th>{{portfolio.bvalue}}</th>\n      <th>{{portfolio.value}}</th>\n      <th>{{portfolio.dchange}}</th>\n      <th>{{portfolio.dchangep}}</th>\n      <th>{{portfolio.wchange}}</th>\n      <th>{{portfolio.wchangep}}</th>\n      <th>{{portfolio.tchange}}</th>\n      <th>{{portfolio.tchangep}}</th>\n    </tr>\n    <tr *ngFor=\"let stock of stocks\">\n      <th>\n        <a routerLink=\"/{{slugs}}/{{stock.slug}}\" class=\"symbol\">{{stock.symbol}}</a>\n      </th>\n      <th>{{stock.current}}</th>\n      <th>{{stock.share}}</th>\n      <th>{{stock.basis}}</th>\n      <th>{{stock.value}}</th>\n      <th>{{stock.dchange}}</th>\n      <th>{{stock.dchangep}}</th>\n      <th>{{stock.wchange}}</th>\n      <th>{{stock.wchangep}}</th>\n      <th>{{stock.tchange}}</th>\n      <th>{{stock.tchangep}}</th>\n    </tr>\n  </table>\n  <a routerLink=\"/{{slugs}}/new-stock\" class=\"button secondary small\">+ Add New Stock</a>\n  <a (click)=\"delete()\" class=\"button secondary small\">+ Delete {{slugs}}</a>\n</div>\n"
+module.exports = "<div class=\"frame\">\n  <h2>{{slugs}}</h2>\n  <p>{{portfolio.description}}</p>\n  <table id=\"slist\" *ngIf=\"stocks\">\n    <tr>\n      <th>Symbol</th>\n      <th>Current Prc</th>\n      <th>Shares</th>\n      <th>Cost Basis</th>\n      <th>Value</th>\n      <th>Day Chg</th>\n      <th>Day Chg %</th>\n      <th>Week Chg</th>\n      <th>Week Chg %</th>\n      <th>Total Chg</th>\n      <th>Total Chg %</th>\n    </tr>\n    <tr>\n      <th>{{slugs}}</th>\n      <th></th>\n      <th></th>\n      <th>{{portfolio.bvalue}}</th>\n      <th>{{portfolio.value}}</th>\n      <th>{{portfolio.dchange}}</th>\n      <th>{{portfolio.dchangep}}</th>\n      <th>{{portfolio.wchange}}</th>\n      <th>{{portfolio.wchangep}}</th>\n      <th>{{portfolio.tchange}}</th>\n      <th>{{portfolio.tchangep}}</th>\n    </tr>\n    <tr *ngFor=\"let stock of stocks\">\n      <th>\n        <a routerLink=\"/{{slugs}}/{{stock.slug}}\" class=\"symbol\">{{stock.symbol}}</a>\n      </th>\n      <th>{{stock.current}}</th>\n      <th>{{stock.share}}</th>\n      <th>{{stock.basis}}</th>\n      <th>{{stock.value}}</th>\n      <th>{{stock.dchange}}</th>\n      <th>{{stock.dchangep}}</th>\n      <th>{{stock.wchange}}</th>\n      <th>{{stock.wchangep}}</th>\n      <th>{{stock.tchange}}</th>\n      <th>{{stock.tchangep}}</th>\n    </tr>\n  </table>\n  <a routerLink=\"/{{slugs}}/new-stock\" class=\"button secondary small\">+ Add New Stock</a>\n  <a (click)=\"delete()\" class=\"button secondary small\">Delete {{slugs}}</a>\n  <a routerLink=\"/{{slugs}}/edit\" class=\"button secondary small\">Edit {{slugs}}</a>\n</div>\n"
 
 /***/ }),
 

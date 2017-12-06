@@ -4,8 +4,6 @@
 <div class="frame">
   <h1>Edit {{slugs}}</h1>
   <form #f="ngForm" (ngSubmit)="onSubmit(f)">
-    Name
-    <input name="name" [placeholder]="validation" [style.background-color]="color" ngModel required>{{exist}}
     <br>Description
     <input name="description" placeholder="optional" ngModel>
     <br>Color Tag
