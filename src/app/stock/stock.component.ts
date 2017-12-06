@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { async } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+declare const TradingView: any;
 
 @Component({
   selector: 'app-stock',
@@ -33,6 +34,28 @@ export class StockComponent implements OnInit {
         }
       );
     }
+    const widget = new TradingView.widget({
+      'container_id': 'technical-analysis',
+      'width': 998,
+      'height': 610,
+      'symbol': 'AAPL',
+      'interval': 'D',
+      'timezone': 'exchange',
+      'theme': 'Light',
+      'style': '1',
+      'toolbar_bg': '#f1f3f6',
+      'withdateranges': true,
+      'hide_side_toolbar': false,
+      'allow_symbol_change': true,
+      'save_image': false,
+      'hideideas': true,
+      'studies': ['ROC@tv-basicstudies',
+        'StochasticRSI@tv-basicstudies',
+        'MASimple@tv-basicstudies'
+      ],
+      'show_popup_button': true,
+      'popup_width': '1000',
+      'popup_height': '650'
+    });
   }
-
 }

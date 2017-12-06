@@ -889,7 +889,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/stock/stock.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"frame\">\n  <h2>\n    <a routerLink=\"/{{pslugs}}\">{{pslugs}}</a>\n    /{{sslugs}}\n  </h2>\n  <table>\n    <tr>\n      <th>Current Prc</th>\n      <th>Shares</th>\n      <th>Cost Basis</th>\n      <th>Value</th>\n      <th>Day Chg</th>\n      <th>Day Chg %</th>\n      <th>Week Chg</th>\n      <th>Week Chg %</th>\n      <th>Total Chg</th>\n      <th>Total Chg %</th>\n    </tr>\n    <tr>\n      <th>{{stock.current}}</th>\n      <th>{{stock.share}}</th>\n      <th>{{stock.basis}}</th>\n      <th>{{stock.value}}</th>\n      <th>{{stock.dchange}}</th>\n      <th>{{stock.dchangep}}</th>\n      <th>{{stock.wchange}}</th>\n      <th>{{stock.wchangep}}</th>\n      <th>{{stock.tchange}}</th>\n      <th>{{stock.tchangep}}</th>\n    </tr>\n  </table>\n  <!-- TradingView Widget BEGIN -->\n  <script type=\"text/javascript\">\n    new TradingView.widget({\n      \"container_id\": 'technical-analysis',\n      \"width\": 998,\n      \"height\": 610,\n      \"symbol\": \"AAPL\",\n      \"interval\": \"D\",\n      \"timezone\": \"exchange\",\n      \"theme\": \"Light\",\n      \"style\": \"1\",\n      \"toolbar_bg\": \"#f1f3f6\",\n      \"withdateranges\": true,\n      \"hide_side_toolbar\": false,\n      \"allow_symbol_change\": true,\n      \"save_image\": false,\n      \"hideideas\": true,\n      \"studies\": [\"ROC@tv-basicstudies\",\n        \"StochasticRSI@tv-basicstudies\",\n        \"MASimple@tv-basicstudies\"\n      ],\n      \"show_popup_button\": true,\n      \"popup_width\": \"1000\",\n      \"popup_height\": \"650\"\n    });\n\n  </script>\n  <!-- TradingView Widget END -->\n</div>\n"
+module.exports = "<div class=\"frame\">\r\n  <h2>\r\n    <a routerLink=\"/{{pslugs}}\">{{pslugs}}</a>\r\n    > {{stock.symbol}}\r\n  </h2>\r\n  <table>\r\n    <tr>\r\n      <th>Current Prc</th>\r\n      <th>Shares</th>\r\n      <th>Cost Basis</th>\r\n      <th>Value</th>\r\n      <th>Day Chg</th>\r\n      <th>Day Chg %</th>\r\n      <th>Week Chg</th>\r\n      <th>Week Chg %</th>\r\n      <th>Total Chg</th>\r\n      <th>Total Chg %</th>\r\n    </tr>\r\n    <tr>\r\n      <th>{{stock.current}}</th>\r\n      <th>{{stock.share}}</th>\r\n      <th>{{stock.basis}}</th>\r\n      <th>{{stock.value}}</th>\r\n      <th>{{stock.dchange}}</th>\r\n      <th>{{stock.dchangep}}</th>\r\n      <th>{{stock.wchange}}</th>\r\n      <th>{{stock.wchangep}}</th>\r\n      <th>{{stock.tchange}}</th>\r\n      <th>{{stock.tchangep}}</th>\r\n    </tr>\r\n  </table>\r\n  <div id=\"technical-analysis\">\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -939,6 +939,29 @@ var StockComponent = (function () {
                 console.log(err);
             });
         }
+        var widget = new TradingView.widget({
+            'container_id': 'technical-analysis',
+            'width': 998,
+            'height': 610,
+            'symbol': 'AAPL',
+            'interval': 'D',
+            'timezone': 'exchange',
+            'theme': 'Light',
+            'style': '1',
+            'toolbar_bg': '#f1f3f6',
+            'withdateranges': true,
+            'hide_side_toolbar': false,
+            'allow_symbol_change': true,
+            'save_image': false,
+            'hideideas': true,
+            'studies': ['ROC@tv-basicstudies',
+                'StochasticRSI@tv-basicstudies',
+                'MASimple@tv-basicstudies'
+            ],
+            'show_popup_button': true,
+            'popup_width': '1000',
+            'popup_height': '650'
+        });
     };
     StockComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
