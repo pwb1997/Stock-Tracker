@@ -1,3 +1,60 @@
-<p>
-  stock works!
-</p>
+<div class="frame">
+  <h2>
+    <a routerLink="/{{pslugs}}">{{pslugs}}</a>
+    /{{sslugs}}
+  </h2>
+  <table>
+    <tr>
+      <th>Current Prc</th>
+      <th>Shares</th>
+      <th>Cost Basis</th>
+      <th>Value</th>
+      <th>Day Chg</th>
+      <th>Day Chg %</th>
+      <th>Week Chg</th>
+      <th>Week Chg %</th>
+      <th>Total Chg</th>
+      <th>Total Chg %</th>
+    </tr>
+    <tr>
+      <th>{{stock.current}}</th>
+      <th>{{stock.share}}</th>
+      <th>{{stock.basis}}</th>
+      <th>{{stock.value}}</th>
+      <th>{{stock.dchange}}</th>
+      <th>{{stock.dchangep}}</th>
+      <th>{{stock.wchange}}</th>
+      <th>{{stock.wchangep}}</th>
+      <th>{{stock.tchange}}</th>
+      <th>{{stock.tchangep}}</th>
+    </tr>
+  </table>
+  <!-- TradingView Widget BEGIN -->
+  <script type="text/javascript">
+    new TradingView.widget({
+      "container_id": 'technical-analysis',
+      "width": 998,
+      "height": 610,
+      "symbol": "AAPL",
+      "interval": "D",
+      "timezone": "exchange",
+      "theme": "Light",
+      "style": "1",
+      "toolbar_bg": "#f1f3f6",
+      "withdateranges": true,
+      "hide_side_toolbar": false,
+      "allow_symbol_change": true,
+      "save_image": false,
+      "hideideas": true,
+      "studies": ["ROC@tv-basicstudies",
+        "StochasticRSI@tv-basicstudies",
+        "MASimple@tv-basicstudies"
+      ],
+      "show_popup_button": true,
+      "popup_width": "1000",
+      "popup_height": "650"
+    });
+
+  </script>
+  <!-- TradingView Widget END -->
+</div>

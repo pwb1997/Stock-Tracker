@@ -217,6 +217,39 @@ router.post('/add-portfolio', (req, res) => {
   });
 });
 
+router.get('/stocks/:pslugs/:sslugs', (req, res) => {
+  if (req.session.uid === undefined || req.session.uname === undefined) {
+    console.log(date(), 'Session error');
+    res.sendStatus(500);
+    return;
+  }
+  User.findOne({
+    'uid': req.session.uid
+  }, (err, user) => {
+    if (err || user === null) {
+      res.sendStatus(500);
+      return;
+    }
+    let stock;
+    for (const p of user.portfolios) {
+      if (p.name === req.params.pslugs) {
+        for (const s of p.stocks) {
+          if (req.params.sslugs === JSON.parse(JSON.stringify(s)).slug) {
+            stock = s;
+            break;
+          }
+        }
+        break;
+      }
+    }
+    async function f() {
+      const result = await calcStock(stock.symbol, stock.share, stock.costBasis);
+      res.send(result[1]);
+    }
+    f();
+  });
+});
+
 router.get('/portfolios/:pslugs', (req, res) => {
   if (req.session.uid === undefined || req.session.uname === undefined) {
     console.log(date(), 'Session error');

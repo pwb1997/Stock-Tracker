@@ -88,7 +88,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "\r\n", ""]);
+exports.push([module.i, ".frame {\r\n  margin-top: 70px;\r\n  position: absolute;\r\n}\r\n\r\n.symbol {\r\n  color: rgb(68, 68, 199);\r\n  text-decoration: underline;\r\n}\r\n\r\n.symbol:visited {\r\n  color: rgb(68, 68, 199);\r\n  text-decoration: underline;\r\n}\r\n", ""]);
 
 // exports
 
@@ -212,7 +212,11 @@ var appRoutes = [
     {
         path: ':pslugs/edit',
         component: __WEBPACK_IMPORTED_MODULE_16__edit_portfolio_edit_portfolio_component__["a" /* EditPortfolioComponent */],
-    }
+    },
+    {
+        path: ':pslugs/s/:sslugs',
+        component: __WEBPACK_IMPORTED_MODULE_14__stock_stock_component__["a" /* StockComponent */],
+    },
 ];
 var AppModule = (function () {
     function AppModule() {
@@ -776,7 +780,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".frame {\r\n  margin-top: 70px;\r\n  position: absolute;\r\n}\r\n\r\n.symbol {\r\n  color: rgb(68, 68, 199);\r\n  text-decoration: underline;\r\n}\r\n", ""]);
+exports.push([module.i, ".frame {\r\n  margin-top: 70px;\r\n  position: absolute;\r\n}\r\n\r\n.symbol {\r\n  color: rgb(68, 68, 199);\r\n  text-decoration: underline;\r\n}\r\n\r\n.symbol:visited {\r\n  color: rgb(68, 68, 199);\r\n  text-decoration: underline;\r\n}\r\n", ""]);
 
 // exports
 
@@ -789,7 +793,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/portfolio/portfolio.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"frame\">\n  <h2>{{slugs}}</h2>\n  <p>{{portfolio.description}}</p>\n  <table id=\"slist\" *ngIf=\"stocks\">\n    <tr>\n      <th>Symbol</th>\n      <th>Current Prc</th>\n      <th>Shares</th>\n      <th>Cost Basis</th>\n      <th>Value</th>\n      <th>Day Chg</th>\n      <th>Day Chg %</th>\n      <th>Week Chg</th>\n      <th>Week Chg %</th>\n      <th>Total Chg</th>\n      <th>Total Chg %</th>\n    </tr>\n    <tr>\n      <th>{{slugs}}</th>\n      <th></th>\n      <th></th>\n      <th>{{portfolio.bvalue}}</th>\n      <th>{{portfolio.value}}</th>\n      <th>{{portfolio.dchange}}</th>\n      <th>{{portfolio.dchangep}}</th>\n      <th>{{portfolio.wchange}}</th>\n      <th>{{portfolio.wchangep}}</th>\n      <th>{{portfolio.tchange}}</th>\n      <th>{{portfolio.tchangep}}</th>\n    </tr>\n    <tr *ngFor=\"let stock of stocks\">\n      <th>\n        <a routerLink=\"/{{slugs}}/{{stock.slug}}\" class=\"symbol\">{{stock.symbol}}</a>\n      </th>\n      <th>{{stock.current}}</th>\n      <th>{{stock.share}}</th>\n      <th>{{stock.basis}}</th>\n      <th>{{stock.value}}</th>\n      <th>{{stock.dchange}}</th>\n      <th>{{stock.dchangep}}</th>\n      <th>{{stock.wchange}}</th>\n      <th>{{stock.wchangep}}</th>\n      <th>{{stock.tchange}}</th>\n      <th>{{stock.tchangep}}</th>\n    </tr>\n  </table>\n  <a routerLink=\"/{{slugs}}/new-stock\" class=\"button secondary small\">+ Add New Stock</a>\n  <a (click)=\"delete()\" class=\"button secondary small\">Delete {{slugs}}</a>\n  <a routerLink=\"/{{slugs}}/edit\" class=\"button secondary small\">Edit {{slugs}}</a>\n</div>\n"
+module.exports = "<div class=\"frame\">\n  <h2>{{slugs}}</h2>\n  <p>{{portfolio.description}}</p>\n  <table id=\"slist\" *ngIf=\"stocks\">\n    <tr>\n      <th>Symbol</th>\n      <th>Current Prc</th>\n      <th>Shares</th>\n      <th>Cost Basis</th>\n      <th>Value</th>\n      <th>Day Chg</th>\n      <th>Day Chg %</th>\n      <th>Week Chg</th>\n      <th>Week Chg %</th>\n      <th>Total Chg</th>\n      <th>Total Chg %</th>\n    </tr>\n    <tr>\n      <th>{{slugs}}</th>\n      <th></th>\n      <th></th>\n      <th>{{portfolio.bvalue}}</th>\n      <th>{{portfolio.value}}</th>\n      <th>{{portfolio.dchange}}</th>\n      <th>{{portfolio.dchangep}}</th>\n      <th>{{portfolio.wchange}}</th>\n      <th>{{portfolio.wchangep}}</th>\n      <th>{{portfolio.tchange}}</th>\n      <th>{{portfolio.tchangep}}</th>\n    </tr>\n    <tr *ngFor=\"let stock of stocks\">\n      <th>\n        <a routerLink=\"/{{slugs}}/s/{{stock.slug}}\" class=\"symbol\">{{stock.symbol}}</a>\n      </th>\n      <th>{{stock.current}}</th>\n      <th>{{stock.share}}</th>\n      <th>{{stock.basis}}</th>\n      <th>{{stock.value}}</th>\n      <th>{{stock.dchange}}</th>\n      <th>{{stock.dchangep}}</th>\n      <th>{{stock.wchange}}</th>\n      <th>{{stock.wchangep}}</th>\n      <th>{{stock.tchange}}</th>\n      <th>{{stock.tchangep}}</th>\n    </tr>\n  </table>\n  <a routerLink=\"/{{slugs}}/new-stock\" class=\"button secondary small\">+ Add New Stock</a>\n  <a (click)=\"delete()\" class=\"button secondary small\">Delete {{slugs}}</a>\n  <a routerLink=\"/{{slugs}}/edit\" class=\"button secondary small\">Edit {{slugs}}</a>\n</div>\n"
 
 /***/ }),
 
@@ -872,7 +876,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".frame {\r\n  margin-top: 70px;\r\n  position: absolute;\r\n}\r\n", ""]);
 
 // exports
 
@@ -885,7 +889,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/stock/stock.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  stock works!\n</p>\n"
+module.exports = "<div class=\"frame\">\n  <h2>\n    <a routerLink=\"/{{pslugs}}\">{{pslugs}}</a>\n    /{{sslugs}}\n  </h2>\n  <table>\n    <tr>\n      <th>Current Prc</th>\n      <th>Shares</th>\n      <th>Cost Basis</th>\n      <th>Value</th>\n      <th>Day Chg</th>\n      <th>Day Chg %</th>\n      <th>Week Chg</th>\n      <th>Week Chg %</th>\n      <th>Total Chg</th>\n      <th>Total Chg %</th>\n    </tr>\n    <tr>\n      <th>{{stock.current}}</th>\n      <th>{{stock.share}}</th>\n      <th>{{stock.basis}}</th>\n      <th>{{stock.value}}</th>\n      <th>{{stock.dchange}}</th>\n      <th>{{stock.dchangep}}</th>\n      <th>{{stock.wchange}}</th>\n      <th>{{stock.wchangep}}</th>\n      <th>{{stock.tchange}}</th>\n      <th>{{stock.tchangep}}</th>\n    </tr>\n  </table>\n  <!-- TradingView Widget BEGIN -->\n  <script type=\"text/javascript\">\n    new TradingView.widget({\n      \"container_id\": 'technical-analysis',\n      \"width\": 998,\n      \"height\": 610,\n      \"symbol\": \"AAPL\",\n      \"interval\": \"D\",\n      \"timezone\": \"exchange\",\n      \"theme\": \"Light\",\n      \"style\": \"1\",\n      \"toolbar_bg\": \"#f1f3f6\",\n      \"withdateranges\": true,\n      \"hide_side_toolbar\": false,\n      \"allow_symbol_change\": true,\n      \"save_image\": false,\n      \"hideideas\": true,\n      \"studies\": [\"ROC@tv-basicstudies\",\n        \"StochasticRSI@tv-basicstudies\",\n        \"MASimple@tv-basicstudies\"\n      ],\n      \"show_popup_button\": true,\n      \"popup_width\": \"1000\",\n      \"popup_height\": \"650\"\n    });\n\n  </script>\n  <!-- TradingView Widget END -->\n</div>\n"
 
 /***/ }),
 
@@ -895,6 +899,9 @@ module.exports = "<p>\n  stock works!\n</p>\n"
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StockComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__("../../../common/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ngx_cookie_service__ = __webpack_require__("../../../../ngx-cookie-service/index.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -905,10 +912,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
+
+
 var StockComponent = (function () {
-    function StockComponent() {
+    function StockComponent(route, cookieService, http, router) {
+        this.route = route;
+        this.cookieService = cookieService;
+        this.http = http;
+        this.router = router;
+        this.pslugs = '';
+        this.sslugs = '';
+        this.loggedin = '';
+        this.stock = {};
     }
     StockComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.pslugs = this.route.snapshot.params['pslugs'];
+        this.sslugs = this.route.snapshot.params['sslugs'];
+        this.loggedin = this.cookieService.get('loggedin');
+        if (this.loggedin === 'true') {
+            this.http.get('/api/stocks/' + this.pslugs + '/' + this.sslugs, { responseType: 'text' }).subscribe(function (res) {
+                _this.stock = JSON.parse(res);
+            }, function (err) {
+                console.log(err);
+            });
+        }
     };
     StockComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -917,7 +947,7 @@ var StockComponent = (function () {
             styles: [__webpack_require__("../../../../../src/app/stock/stock.component.css")],
             encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_10" /* ViewEncapsulation */].None
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_3_ngx_cookie_service__["a" /* CookieService */], __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]])
     ], StockComponent);
     return StockComponent;
 }());

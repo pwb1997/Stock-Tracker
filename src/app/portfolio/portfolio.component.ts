@@ -25,7 +25,7 @@ export class PortfolioComponent implements OnInit {
       err => {
         alert('Failed to Delete ' + this.slugs);
       }
-    )
+    );
   }
   constructor(private route: ActivatedRoute, private cookieService: CookieService, private http: HttpClient, private router: Router) { }
 
@@ -41,7 +41,7 @@ export class PortfolioComponent implements OnInit {
         err => {
           console.log(err);
         }
-      )
+      );
     }
   }
 

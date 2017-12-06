@@ -30,7 +30,7 @@
     </tr>
     <tr *ngFor="let stock of stocks">
       <th>
-        <a routerLink="/{{slugs}}/{{stock.slug}}" class="symbol">{{stock.symbol}}</a>
+        <a routerLink="/{{slugs}}/s/{{stock.slug}}" class="symbol">{{stock.symbol}}</a>
       </th>
       <th>{{stock.current}}</th>
       <th>{{stock.share}}</th>
