@@ -543,7 +543,7 @@ var NewPortfolioComponent = (function () {
         this.router = router;
         this.validation = 'eg. Portfolio 1';
         this.color = 'white';
-        this.exist = "";
+        this.exist = '';
     }
     NewPortfolioComponent.prototype.onSubmit = function (f) {
         var _this = this;
@@ -560,7 +560,6 @@ var NewPortfolioComponent = (function () {
                     _this.exist = 'Name Exists, Try Another!';
                     _this.color = '#ff9292';
                 }
-                ;
             });
         }
     };

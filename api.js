@@ -88,7 +88,7 @@ async function calcPortfolio(portfolio) {
   portfo.stocks = [];
   for (const s of portfolio.stocks) {
     const stock = await calcStock(s.symbol, s.share, s.costBasis);
-    stock[1].slug = s.slug;
+    stock[1].slug = JSON.parse(JSON.stringify(s)).slug;
     portfo.stocks.push(stock[1]);
     portfo.value += stock[0].value;
     portfo.dchange += stock[0].current - stock[0].previous;
@@ -126,21 +126,32 @@ router.get('/del-portfolio/:pslugs', (req, res) => {
   }, (err, user) => {
     if (err || user === null) {
       res.sendStatus(500);
+      console.log(date(), 'DB error, drop all collections to fix!');
+      return;
     } else {
       for (const i in user.portfolios) {
         if (user.portfolios[i].name === req.params.pslugs) {
+          for (const s of user.portfolios[i].stocks) {
+            Stock.find({
+              'slug': JSON.parse(JSON.stringify(s)).slug
+            }).remove().exec();
+          }
           user.portfolios.splice(i, 1);
         }
       }
       user.save((err) => {
         if (err) {
           res.sendStatus(500);
+          console.log(date(), 'DB error, drop all collections to fix!');
           return;
         }
-        res.send('success');
       });
     }
   });
+  Portfolio.find({
+    'name': req.params.pslugs
+  }).remove().exec();
+  res.send('success');
 });
 
 router.get('/portfolios', (req, res) => {
@@ -193,7 +204,6 @@ router.post('/add-portfolio', (req, res) => {
         } else {
           user.portfolios.push(portfolio);
           user.save((err) => {
-            mongoose.connection.collections['portfolios'].drop();
             if (err) {
               console.log(date(), 'DB error, drop all collections to fix!');
               res.sendStatus(500);
@@ -260,8 +270,14 @@ router.post('/:pslugs/add-stock', (req, res) => {
     const share = parseInt(0 + req.body.share);
     const basis = parseFloat(parseFloat(0 + req.body['cost basis']).toFixed(2));
     async function f() {
-      const valid = await finance.quote(symbol);
-      if (!valid) {
+      let valid;
+      try {
+        valid = await finance.quote(symbol);
+      } catch (e) {
+        res.sendStatus(400);
+        return;
+      }
+      if (valid === null || valid === undefined) {
         res.sendStatus(400);
         return;
       }
@@ -278,7 +294,6 @@ router.post('/:pslugs/add-stock', (req, res) => {
           return;
         }
         portfolio.stocks.push(stock);
-        mongoose.connection.collections['stocks'].drop();
         portfolio.save((err) => {
           if (err) {
             res.sendStatus(500);

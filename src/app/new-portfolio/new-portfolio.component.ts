@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class NewPortfolioComponent implements OnInit {
   validation = 'eg. Portfolio 1';
   color = 'white';
-  exist = "";
+  exist = '';
   onSubmit(f: NgForm) {
     if (!f.valid) {
       this.validation = 'Please input a Valid Name!';
@@ -22,13 +22,13 @@ export class NewPortfolioComponent implements OnInit {
       f.value.color = f.value.color || 'white';
       this.http.post('/api/add-portfolio', f.value, { responseType: 'text' }).subscribe(
         res => {
-          this.router.navigateByUrl('/home')
+          this.router.navigateByUrl('/home');
         },
         err => {
           if (err.status === 400) {
             this.exist = 'Name Exists, Try Another!';
             this.color = '#ff9292';
-          };
+          }
         }
       );
     }
