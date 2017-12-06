@@ -876,7 +876,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".frame {\r\n  margin-top: 70px;\r\n  position: absolute;\r\n}\r\n\r\n.symbol:visited {\r\n  color: rgb(68, 68, 199);\r\n}\r\n\r\n.symbol,\r\n.symbol:hover {\r\n  color: rgb(68, 68, 199);\r\n  text-decoration: underline;\r\n}\r\n", ""]);
+exports.push([module.i, ".frame {\r\n  margin-top: 70px;\r\n  position: absolute;\r\n}\r\n\r\n.symbol:visited,\r\n.pname:visited {\r\n  color: rgb(68, 68, 199);\r\n}\r\n\r\n.symbol,\r\n.symbol:hover,\r\n.pname,\r\n.pname:hover {\r\n  color: rgb(68, 68, 199);\r\n  text-decoration: underline;\r\n}\r\n", ""]);
 
 // exports
 
@@ -889,7 +889,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/stock/stock.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"frame\">\r\n  <h2>\r\n    <a routerLink=\"/{{pslugs}}\">{{pslugs}}</a>\r\n    > {{stock.symbol}}\r\n  </h2>\r\n  <table>\r\n    <tr>\r\n      <th>Current Prc</th>\r\n      <th>Shares</th>\r\n      <th>Cost Basis</th>\r\n      <th>Value</th>\r\n      <th>Day Chg</th>\r\n      <th>Day Chg %</th>\r\n      <th>Week Chg</th>\r\n      <th>Week Chg %</th>\r\n      <th>Total Chg</th>\r\n      <th>Total Chg %</th>\r\n    </tr>\r\n    <tr>\r\n      <th>{{stock.current}}</th>\r\n      <th>{{stock.share}}</th>\r\n      <th>{{stock.basis}}</th>\r\n      <th>{{stock.value}}</th>\r\n      <th>{{stock.dchange}}</th>\r\n      <th>{{stock.dchangep}}</th>\r\n      <th>{{stock.wchange}}</th>\r\n      <th>{{stock.wchangep}}</th>\r\n      <th>{{stock.tchange}}</th>\r\n      <th>{{stock.tchangep}}</th>\r\n    </tr>\r\n  </table>\r\n  <div id=\"technical-analysis\">\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"frame\">\r\n  <h2>\r\n    <a routerLink=\"/{{pslugs}}\" class=\"pname\">{{pslugs}}</a>\r\n    > {{stock.symbol}}\r\n  </h2>\r\n  <table>\r\n    <tr>\r\n      <th>Current Prc</th>\r\n      <th>Shares</th>\r\n      <th>Cost Basis</th>\r\n      <th>Value</th>\r\n      <th>Day Chg</th>\r\n      <th>Day Chg %</th>\r\n      <th>Week Chg</th>\r\n      <th>Week Chg %</th>\r\n      <th>Total Chg</th>\r\n      <th>Total Chg %</th>\r\n    </tr>\r\n    <tr>\r\n      <th>{{stock.current}}</th>\r\n      <th>{{stock.share}}</th>\r\n      <th>{{stock.basis}}</th>\r\n      <th>{{stock.value}}</th>\r\n      <th>{{stock.dchange}}</th>\r\n      <th>{{stock.dchangep}}</th>\r\n      <th>{{stock.wchange}}</th>\r\n      <th>{{stock.wchangep}}</th>\r\n      <th>{{stock.tchange}}</th>\r\n      <th>{{stock.tchangep}}</th>\r\n    </tr>\r\n  </table>\r\n  <div id=\"technical-analysis\">\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 

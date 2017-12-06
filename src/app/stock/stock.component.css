@@ -3,12 +3,15 @@
   position: absolute;
 }
 
-.symbol:visited {
+.symbol:visited,
+.pname:visited {
   color: rgb(68, 68, 199);
 }
 
 .symbol,
-.symbol:hover {
+.symbol:hover,
+.pname,
+.pname:hover {
   color: rgb(68, 68, 199);
   text-decoration: underline;
 }
