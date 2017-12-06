@@ -39,34 +39,34 @@ export class StockComponent implements OnInit {
       this.http.get('/api/stocks/' + this.pslugs + '/' + this.sslugs, { responseType: 'text' }).subscribe(
         res => {
           this.stock = JSON.parse(res);
+          const widget = new TradingView.widget({
+            'container_id': 'technical-analysis',
+            'width': 998,
+            'height': 610,
+            'symbol': this.stock.symbol,
+            'interval': 'D',
+            'timezone': 'exchange',
+            'theme': 'Light',
+            'style': '1',
+            'toolbar_bg': '#f1f3f6',
+            'withdateranges': true,
+            'hide_side_toolbar': false,
+            'allow_symbol_change': true,
+            'save_image': false,
+            'hideideas': true,
+            'studies': ['ROC@tv-basicstudies',
+              'StochasticRSI@tv-basicstudies',
+              'MASimple@tv-basicstudies'
+            ],
+            'show_popup_button': false,
+            'popup_width': '1000',
+            'popup_height': '650'
+          });
         },
         err => {
           console.log(err);
         }
       );
     }
-    const widget = new TradingView.widget({
-      'container_id': 'technical-analysis',
-      'width': 998,
-      'height': 610,
-      'symbol': this.stock.symbol,
-      'interval': 'D',
-      'timezone': 'exchange',
-      'theme': 'Light',
-      'style': '1',
-      'toolbar_bg': '#f1f3f6',
-      'withdateranges': true,
-      'hide_side_toolbar': false,
-      'allow_symbol_change': true,
-      'save_image': false,
-      'hideideas': true,
-      'studies': ['ROC@tv-basicstudies',
-        'StochasticRSI@tv-basicstudies',
-        'MASimple@tv-basicstudies'
-      ],
-      'show_popup_button': true,
-      'popup_width': '1000',
-      'popup_height': '650'
-    });
   }
 }

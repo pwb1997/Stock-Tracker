@@ -528,7 +528,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "nav {\r\n  overflow: hidden;\r\n  background-color: #333;\r\n  position: fixed;\r\n  top: 0px;\r\n  width: 100%;\r\n  height: 60px;\r\n  -webkit-user-select: none;\r\n     -moz-user-select: none;\r\n      -ms-user-select: none;\r\n          user-select: none;\r\n}\r\n\r\nli {\r\n  float: left;\r\n  display: block;\r\n  color: #f2f2f2;\r\n  text-align: center;\r\n  line-height: 60px;\r\n  text-decoration: none;\r\n  font-size: 40px;\r\n  font-family: Palatino, Palatino Linotype, Palatino LT STD, Book Antiqua, Georgia, serif;\r\n}\r\n\r\n#l1 {\r\n  top: 16px;\r\n}\r\n\r\n#l2 {\r\n  top: 36px;\r\n}\r\n\r\nli p {\r\n  position: fixed;\r\n  display: block;\r\n  line-height: 8px;\r\n  font-size: 20px;\r\n  left: 65px;\r\n}\r\n\r\nimg {\r\n  height: 49px;\r\n  width: 50px;\r\n}\r\n\r\n.image {\r\n  height: 60px;\r\n  width: 150px;\r\n  padding-top: 5px;\r\n  padding-right: 80px;\r\n}\r\n\r\n.menu {\r\n  padding: 0px 20px;\r\n  font-variant: small-caps;\r\n}\r\n\r\na,\r\na:hover,\r\na:visited {\r\n  color: #f2f2f2;\r\n  text-decoration: none;\r\n}\r\n\r\n#my-signin2 {\r\n  position: fixed;\r\n  right: 12px;\r\n  margin-top: 12px;\r\n}\r\n\r\n#signout {\r\n  position: fixed;\r\n  right: 12px;\r\n  margin-top: 12px;\r\n  height: 36px;\r\n  width: 110px;\r\n  display: block;\r\n  text-align: center;\r\n  line-height: 36px;\r\n  font-family: Roboto, arial, sans-serif;\r\n  font-size: 13px;\r\n  font-weight: 500px;\r\n  letter-spacing: 0.21px;\r\n  color: rgb(255, 255, 255);\r\n  padding-left: 43px;\r\n}\r\n\r\n#signout p {\r\n  background: #4484f4;\r\n  width: 60px;\r\n}\r\n", ""]);
+exports.push([module.i, "nav {\r\n  overflow: hidden;\r\n  background-color: #333;\r\n  position: fixed;\r\n  top: 0px;\r\n  width: 100%;\r\n  height: 60px;\r\n  -webkit-user-select: none;\r\n     -moz-user-select: none;\r\n      -ms-user-select: none;\r\n          user-select: none;\r\n  z-index: 999;\r\n}\r\n\r\nli {\r\n  float: left;\r\n  display: block;\r\n  color: #f2f2f2;\r\n  text-align: center;\r\n  line-height: 60px;\r\n  text-decoration: none;\r\n  font-size: 40px;\r\n  font-family: Palatino, Palatino Linotype, Palatino LT STD, Book Antiqua, Georgia, serif;\r\n}\r\n\r\n#l1 {\r\n  top: 16px;\r\n}\r\n\r\n#l2 {\r\n  top: 36px;\r\n}\r\n\r\nli p {\r\n  position: fixed;\r\n  display: block;\r\n  line-height: 8px;\r\n  font-size: 20px;\r\n  left: 65px;\r\n}\r\n\r\nimg {\r\n  height: 49px;\r\n  width: 50px;\r\n}\r\n\r\n.image {\r\n  height: 60px;\r\n  width: 150px;\r\n  padding-top: 5px;\r\n  padding-right: 80px;\r\n}\r\n\r\n.menu {\r\n  padding: 0px 20px;\r\n  font-variant: small-caps;\r\n}\r\n\r\na,\r\na:hover,\r\na:visited {\r\n  color: #f2f2f2;\r\n  text-decoration: none;\r\n}\r\n\r\n#my-signin2 {\r\n  position: fixed;\r\n  right: 12px;\r\n  margin-top: 12px;\r\n}\r\n\r\n#signout {\r\n  position: fixed;\r\n  right: 12px;\r\n  margin-top: 12px;\r\n  height: 36px;\r\n  width: 110px;\r\n  display: block;\r\n  text-align: center;\r\n  line-height: 36px;\r\n  font-family: Roboto, arial, sans-serif;\r\n  font-size: 13px;\r\n  font-weight: 500px;\r\n  letter-spacing: 0.21px;\r\n  color: rgb(255, 255, 255);\r\n  padding-left: 43px;\r\n}\r\n\r\n#signout p {\r\n  background: #4484f4;\r\n  width: 60px;\r\n}\r\n", ""]);
 
 // exports
 
@@ -979,33 +979,33 @@ var StockComponent = (function () {
         if (this.loggedin === 'true') {
             this.http.get('/api/stocks/' + this.pslugs + '/' + this.sslugs, { responseType: 'text' }).subscribe(function (res) {
                 _this.stock = JSON.parse(res);
+                var widget = new TradingView.widget({
+                    'container_id': 'technical-analysis',
+                    'width': 998,
+                    'height': 610,
+                    'symbol': _this.stock.symbol,
+                    'interval': 'D',
+                    'timezone': 'exchange',
+                    'theme': 'Light',
+                    'style': '1',
+                    'toolbar_bg': '#f1f3f6',
+                    'withdateranges': true,
+                    'hide_side_toolbar': false,
+                    'allow_symbol_change': true,
+                    'save_image': false,
+                    'hideideas': true,
+                    'studies': ['ROC@tv-basicstudies',
+                        'StochasticRSI@tv-basicstudies',
+                        'MASimple@tv-basicstudies'
+                    ],
+                    'show_popup_button': false,
+                    'popup_width': '1000',
+                    'popup_height': '650'
+                });
             }, function (err) {
                 console.log(err);
             });
         }
-        var widget = new TradingView.widget({
-            'container_id': 'technical-analysis',
-            'width': 998,
-            'height': 610,
-            'symbol': this.stock.symbol,
-            'interval': 'D',
-            'timezone': 'exchange',
-            'theme': 'Light',
-            'style': '1',
-            'toolbar_bg': '#f1f3f6',
-            'withdateranges': true,
-            'hide_side_toolbar': false,
-            'allow_symbol_change': true,
-            'save_image': false,
-            'hideideas': true,
-            'studies': ['ROC@tv-basicstudies',
-                'StochasticRSI@tv-basicstudies',
-                'MASimple@tv-basicstudies'
-            ],
-            'show_popup_button': true,
-            'popup_width': '1000',
-            'popup_height': '650'
-        });
     };
     StockComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
