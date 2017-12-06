@@ -15,6 +15,7 @@ import { PortfolioComponent } from './portfolio/portfolio.component';
 import { NewStockComponent } from './new-stock/new-stock.component';
 import { StockComponent } from './stock/stock.component';
 import { EditStockComponent } from './edit-stock/edit-stock.component';
+import { EditPortfolioComponent } from './edit-portfolio/edit-portfolio.component';
 
 const appRoutes: Routes = [
   {
@@ -40,6 +41,10 @@ const appRoutes: Routes = [
   {
     path: ':pslugs/new-stock',
     component: NewStockComponent,
+  },
+  {
+    path: ':pslugs/edit',
+    component: EditPortfolioComponent,
   }
 ];
 
@@ -54,6 +59,7 @@ const appRoutes: Routes = [
     NewStockComponent,
     StockComponent,
     EditStockComponent,
+    EditPortfolioComponent,
   ],
   imports: [
     RouterModule.forRoot(

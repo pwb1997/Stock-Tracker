@@ -245,6 +245,45 @@ router.get('/portfolios/:pslugs', (req, res) => {
   });
 });
 
+router.post('/:pslugs/edit', (req, res) => {
+  if (req.session.uid === undefined || req.session.uname === undefined) {
+    console.log(date(), 'Session error');
+    res.sendStatus(500);
+    return;
+  }
+  User.findOne({
+    'uid': req.session.uid
+  }, (err, user) => {
+    if (err || user === null) {
+      res.sendStatus(500);
+      return;
+    }
+    let portfolio;
+    for (const p of user.portfolios) {
+      if (p.name === req.params.pslugs) {
+        portfolio = p;
+        break;
+      }
+    }
+    portfolio.name = req.body.name;
+    portfolio.description = req.body.description;
+    portfolio.colorTag = req.body.basiscolorTag;
+    portfolio.save((err) => {
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      user.save((err) => {
+        if (err) {
+          res.sendStatus(500);
+          return;
+        }
+        res.send('success');
+      });
+    });
+  });
+});
+
 router.post('/:pslugs/add-stock', (req, res) => {
   if (req.session.uid === undefined || req.session.uname === undefined) {
     console.log(date(), 'Session error');
