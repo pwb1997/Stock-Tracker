@@ -27,7 +27,7 @@ export class NavBarComponent implements OnInit {
   hoverState3 = 'inactive';
   // visibility of sign out
   loggedin = 'false';
-  signoutVisibility = '-100px';
+  signoutVisibility = 'hidden';
   // hover functions
   mouseEnter1() {
     this.hoverState1 = 'active';
@@ -49,7 +49,15 @@ export class NavBarComponent implements OnInit {
   }
   constructor(private cookieService: CookieService) { }
   ngOnInit() {
+    this.signoutVisibility = 'hidden';
     this.loggedin = this.cookieService.get('loggedin');
-    this.signoutVisibility = this.loggedin === 'true' ? '12px' : '-100px';
+    if (this.loggedin === 'true') {
+      setTimeout(() => {
+        if (document.querySelectorAll('.abcRioButtonContents span')[1] !== undefined) {
+          document.querySelectorAll('.abcRioButtonContents span')[1].innerHTML = 'Sign Out';
+          this.signoutVisibility = 'visible';
+        }
+      }, 1000);
+    }
   }
 }

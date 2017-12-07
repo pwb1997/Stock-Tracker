@@ -92,7 +92,7 @@ async function calcPortfolio(portfolio) {
     portfo.stocks.push(stock[1]);
     portfo.value += stock[0].value;
     portfo.dchange += stock[0].current - stock[0].previous;
-    portfo.pwvalue += stock[0].current - stock[0].preweek;
+    portfo.wchange += stock[0].current - stock[0].preweek;
     portfo.previous += stock[0].previous;
     portfo.preweek += stock[0].preweek;
     portfo.bvalue += stock[0].basis;
